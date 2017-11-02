@@ -2,7 +2,7 @@
 
 ## Overview
 
-Photography is becoming a favorite hobby of mine, so here's this site that allows me to show off the work I've done! One thing though: I get a lot of inspiration in my photography and editing from music, so each photo is named after and subsequently linked to a song on Spotify. 
+Photography is becoming a favorite hobby of mine, so here's this site that allows me to show off the work I've done! One thing though: I get a lot of inspiration in my photography and editing from music, so each photo is named after and subsequently linked to a song on Spotify.
 
 God bless.
 
@@ -50,7 +50,7 @@ An Example Album:
     "3",
     "4",
   ],
-  album_endpoint_name: "SF", 
+  album_endpoint_name: "SF",
 }
 ```
 
@@ -82,9 +82,7 @@ An Example Location:
 ```
 
 
-## [Link to Commented First Draft Schema](db.js) 
-
-(___TODO__: create a first draft of your Schemas in db.js and link to it_)
+## [Link to First Draft Schema](db.js)
 
 ## Wireframes
 
@@ -96,11 +94,11 @@ An Example Location:
 
 ![list](documentation/Albums.png)
 
-/albums/{album_endpoint_name} - page for showing specific album
+/album?album_id={album_id} - page for showing specific album
 
 ![list](documentation/Album.png)
 
-/photos/{photo_id} - page for showing specific photo
+/photos?photo_id={photo_id} - page for showing specific photo
 ![list](documentation/Photo.png)
 
 detailed view of the same page, that includes all the photo information
@@ -122,8 +120,8 @@ detailed view of the same page, that includes all the photo information
 
 * (5 points) Use React as a frontend framework
     * I'm going to use react to create a hopefully beautiful webpage
-    * This is my first time dealing with a frontend framework, with limited knowledge of html and css. 
-    * I'm using react since, based on my readings online, it is relatively easy to learn, widely used, and efficient. 
+    * This is my first time dealing with a frontend framework, with limited knowledge of html and css.
+    * I'm using react since, based on my readings online, it is relatively easy to learn, widely used, and efficient.
     * 5 points, because it is my first time dealing with frontend.
 * (4 points) Use the Spotify API to link photos to songs
     * I want users to be able to listen to songs directly from the site, and the spotify api seems like a prime candidate for using songs I don't have to download.
@@ -133,14 +131,12 @@ detailed view of the same page, that includes all the photo information
 * (2 points) Use a CSS framework with reasonable customization
     * I think this will be necessary for the site to look good.
     * I want the size of the photos on the home page or album page to adapt based on the size of the window, which just screams css framework.
-    * I will probably use Bootstrap although I haven't looked into Foundation that much (my understanding is that Foundation is more mobile-focused) 
+    * I will probably use Bootstrap although I haven't looked into Foundation that much (my understanding is that Foundation is more mobile-focused)
 
 11 points total out of 8 required points.
 
 
-## [Link to Initial Main Project File](app.js) 
-
-(___TODO__: create a skeleton Express application with a package.json, app.js, views folder, etc. ... and link to your initial app.js_)
+## [Link to Initial Main Project File](app.js)
 
 ## Annotations / References Used
 
@@ -148,4 +144,3 @@ detailed view of the same page, that includes all the photo information
 2. [React tutorial](https://reactjs.org/docs/hello-world.html).
 3. [Bootstrap tutorial](http://getbootstrap.com/docs/4.0/getting-started/introduction/)
 4. [React-Bootstrap](https://react-bootstrap.github.io/getting-started.html) (I may consider using this after I learn more about react and bootstrap)
-
