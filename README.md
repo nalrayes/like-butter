@@ -90,7 +90,7 @@ An Example Location:
 
 / - home page that includes a specific set of photos
 
-![list create](documentation/Home.jpg)
+![list create](documentation/Home.png)
 
 /albums - page for showing all albums
 
