@@ -1,52 +1,84 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
-(___TODO__: your project name_)
-
-# Shoppy Shoperson 
+# Photography Site
 
 ## Overview
 
-(___TODO__: a brief one or two paragraph, high-level description of your project_)
+Photography is becoming a favorite hobby of mine, so here's this site that allows me to show off the work I've done! One thing though: I get a lot of inspiration in my photography and editing from music, so each photo is named after and subsequently linked to a song on Spotify. 
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
-
+God bless.
 
 ## Data Model
 
-(___TODO__: a description of your application's data and their relationships to each other_) 
+The application will store Photos, Albums, Locations, and Songs.
 
-The application will store Users, Lists and Items
+* photos have all the technical details about them, a title, and one linked song, one linked album, one linked location, as well as an endpoint where the picture will be stored.
+* albums will have a list of photos by id, and a title.
+* songs have a title, artist, album, link for the spotify api, and at least one linked photo.
+* locations have a name, city, state, and country
 
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
-
-(___TODO__: sample documents_)
-
-An Example User:
+An Example Photo:
 
 ```javascript
 {
-  username: "shannonshopper",
-  hash: // a password hash,
-  lists: // an array of references to List documents
+  _id: "1";
+  name: "IMG_8209",
+  title: "gravity eyelids",
+  date: Date("2017-07-01"),
+  location_id: "1",
+  location_string: "Sutro Baths, San Fransisco, CA, USA",
+  camera: "Canon Rebel T6i",
+  lens: "Canon 18-135mm f/3.5-5.6 IS STM",
+  ISO: 100,
+  focal_length: 18.0,
+  aperture: "f/5.0",
+  exposure_time: "1/250 sec",
+  source_album_id: "1",
+  source_album_name: "SF",
+  song_id: "1", // no song name, since all the details would come from the spotify api
+  endpoint: "/photos/1.jpg",
 }
 ```
 
-An Example List with Embedded Items:
+An Example Album:
 
-```javascript
+``` javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
+  _id: "1",
+  album_name: "SF",
+  list_of_photo_ids: [
+    "1",
+    "2",
+    "3",
+    "4",
   ],
-  createdAt: // timestamp
+  album_endpoint_name: "SF", 
 }
 ```
+
+An Example Song:
+
+
+```javascript
+{
+  _id: "1",
+  url: "https://api.spotify.com/v1/tracks/2dAYkfqPYzOTDNxDDVP2vi",
+  track_id: "2dAYkfqPYzOTDNxDDVP2vi",
+  title: "Gravity Eyelids",
+  album: "In Abstentia",
+  artist: "Porcupine Tree",
+  linked_photo_ids: ["1"],
+}
+```
+
+An Example Location:
+
+```javascript
+{
+  _id: "1",
+  name: "Sutro Baths",
+  country: "USA",
+  city: "San Fransisco",
+  state: "CA",
+}
 
 
 ## [Link to Commented First Draft Schema](db.js) 
@@ -55,53 +87,54 @@ An Example List with Embedded Items:
 
 ## Wireframes
 
-(___TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc._)
+/ - home page that includes a specific set of photos
 
-/list/create - page for creating a new shopping list
+![list create](documentation/Home.jpg)
 
-![list create](documentation/list-create.png)
+/albums - page for showing all albums
 
-/list - page for showing all shopping lists
+![list](documentation/Albums.png)
 
-![list](documentation/list.png)
+/albums/{album_endpoint_name} - page for showing specific album
 
-/list/slug - page for showing specific shopping list
+![list](documentation/Album.png)
 
-![list](documentation/list-slug.png)
+/photos/{photo_id} - page for showing specific photo
+![list](documentation/Photo.png)
+
+detailed view of the same page, that includes all the photo information
+![list](documentation/DetailedView.png)
+
+/about - about page
+![list](documentation/About.png)
 
 ## Site map
 
-(___TODO__: draw out a site map that shows how pages are related to each other_)
-
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+![photo](documentation/site-map.png)
 
 ## User Stories or Use Cases
 
-(___TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://www.mongodb.com/download-center?jmp=docs&_ga=1.47552679.1838903181.1489282706#previous)_)
-
-1. as non-registered user, I can register a new account with the site
-2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+1. as a user, I can register browse through photos
+2. as a user, I can listen to the song associated with a photo
 
 ## Research Topics
 
-(___TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed_)
+* (5 points) Use React as a frontend framework
+    * I'm going to use react to create a hopefully beautiful webpage
+    * This is my first time dealing with a frontend framework, with limited knowledge of html and css. 
+    * I'm using react since, based on my readings online, it is relatively easy to learn, widely used, and efficient. 
+    * 5 points, because it is my first time dealing with frontend.
+* (4 points) Use the Spotify API to link photos to songs
+    * I want users to be able to listen to songs directly from the site, and the spotify api seems like a prime candidate for using songs I don't have to download.
+    * Spotify has most of the songs I listen to, therefore most of the songs I would link to photos.
+    * 4 points, although I've used a REST API in the past this is my first exprience with Spotify's, and this involves implementing client side, third party widgets which is also new to me.
 
-* (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
+* (2 points) Use a CSS framework with reasonable customization
+    * I think this will be necessary for the site to look good.
+    * I want the size of the photos on the home page or album page to adapt based on the size of the window, which just screams css framework.
+    * I will probably use Bootstrap although I haven't looked into Foundation that much (my understanding is that Foundation is more mobile-focused) 
 
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit_)
+11 points total out of 8 required points.
 
 
 ## [Link to Initial Main Project File](app.js) 
@@ -110,7 +143,8 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## Annotations / References Used
 
-(___TODO__: list any tutorials/references/etc. that you've based your code off of_)
+1. [Spotify API](https://developer.spotify.com/web-api/).
+2. [React tutorial](https://reactjs.org/docs/hello-world.html).
+3. [Bootstrap tutorial](http://getbootstrap.com/docs/4.0/getting-started/introduction/)
+4. [React-Bootstrap](https://react-bootstrap.github.io/getting-started.html) (I may consider using this after I learn more about react and bootstrap)
 
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
