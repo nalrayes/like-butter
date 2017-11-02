@@ -79,6 +79,7 @@ An Example Location:
   city: "San Fransisco",
   state: "CA",
 }
+```
 
 
 ## [Link to Commented First Draft Schema](db.js) 
