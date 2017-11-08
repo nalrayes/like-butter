@@ -19,7 +19,11 @@
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
     "express": "^4.16.2",
-    "mongoose": "^4.12.6"
+    "express-react-views": "^0.10.4",
+    "mongoose": "^4.12.6",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "reactstrap": "^5.0.0-alpha.3"
   },
   "devDependencies": {
     "eslint": "^4.10.0",

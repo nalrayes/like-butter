@@ -1,12 +1,20 @@
+require('./db.js');
 const express = require('express');
 const path = require('path');
 const sgMail = require('@sendgrid/mail');
 const config = require('../config.json');
 
+const mongoose = require('mongoose');
+const Feedback = mongoose.model('Feedback');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require("express-react-views").createEngine());
 
 // not doing hbs or view engine setup quite yet, need
 // to see how that would work with bootsrap/react
@@ -14,14 +22,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // home endpoint
 // app.get('/', (req, res) => {
 //
-// });
+// });ar
 
 app.get('/feedback', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/feedback.html'));
+  res.render('feedback');
 });
 
 app.post('/feedback', (req, res) => {
   sgMail.setApiKey(config.sendGridKey);
+  new Feedback({
+    from: req.body.senderName,
+    text: req.body.emailBody
+  }).save();
   const msg = {
     to: 'thenalrayes@gmail.com',
     from: 'thenalrayes@gmail.com',
