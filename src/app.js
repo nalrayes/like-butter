@@ -7,7 +7,7 @@ const config = require('../config.json');
 const mongoose = require('mongoose');
 const Feedback = mongoose.model('Feedback');
 
-const app = express();
+                                                                                                                                                                          const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -64,4 +64,4 @@ app.post('/feedback', (req, res) => {
 
 
 
-app.listen(3000);
+app.listen(config.port);

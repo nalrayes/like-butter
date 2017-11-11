@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const config = require('../config.json');
 
 const Photo = new Schema({
   name: String,
@@ -49,4 +50,4 @@ const Feedback = new Schema({
 module.exports = {Photo: Photo, Album: Album, Song: Song, Location: Location, Feedback: Feedback};
 
 mongoose.model('Feedback', Feedback);
-mongoose.connect('mongodb://localhost/final-project');
+mongoose.connect(config.dburl);
