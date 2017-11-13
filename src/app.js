@@ -6,11 +6,18 @@ const config = require('../config.json');
 
 const mongoose = require('mongoose');
 const Feedback = mongoose.model('Feedback');
+const app = express();
 
-                                                                                                                                                                          const app = express();
+const publicPath = path.resolve(__dirname, "public/") + '/';
+app.use('/static', express.static(publicPath));
+
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+
+
+// app.get('/images/logo.png', (req, res) => {
+//   res.sendFile('/home/nayef/Dropbox/NYU Classes/Senior Semester 1/ait/na1487-final-project/src/pubilc/images/logo.png');
+// });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
@@ -22,7 +29,7 @@ app.engine('jsx', require("express-react-views").createEngine());
 // home endpoint
 // app.get('/', (req, res) => {
 //
-// });ar
+// });
 
 app.get('/feedback', (req, res) => {
   res.render('feedback');
@@ -61,7 +68,5 @@ app.post('/feedback', (req, res) => {
 //   // if album_id is invalid, give 404
 //   // else show the album
 // });
-
-
 
 app.listen(config.port);
