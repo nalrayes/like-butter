@@ -42,4 +42,5 @@ const Feedback = new Schema({
 });
 
 mongoose.model('Feedback', Feedback);
+mongoose.model('Photo', Photo);
 mongoose.connect(config.dburl);

@@ -6,6 +6,7 @@ const config = require('../config.json');
 
 const mongoose = require('mongoose');
 const Feedback = mongoose.model('Feedback');
+const Photo = mongoose.model('Photo');
 const app = express();
 
 const publicPath = path.resolve(__dirname, "public/") + '/';
@@ -13,11 +14,6 @@ app.use('/static', express.static(publicPath));
 
 
 app.use(express.urlencoded({ extended: false }));
-
-
-// app.get('/images/logo.png', (req, res) => {
-//   res.sendFile('/home/nayef/Dropbox/NYU Classes/Senior Semester 1/ait/na1487-final-project/src/pubilc/images/logo.png');
-// });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
@@ -49,6 +45,20 @@ app.post('/feedback', (req, res) => {
   };
   sgMail.send(msg);
   res.redirect('/feedback');
+});
+
+app.get('/photos', (req, res) => {
+  res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  if (req.query.location) {
+    console.log(req.query.location);
+    Photo.find({location_string: req.query.location}, (err, photos) => {
+      res.json(photos);
+    });
+  } else {
+    Photo.find((err, photos) => {
+      res.json(photos);
+    });
+  }
 });
 //
 // app.get('/photo', (req, res) => {

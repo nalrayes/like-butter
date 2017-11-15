@@ -1,25 +1,21 @@
 .top-of-page {
-  /*height: 125px;*/
-  position: relative;
   border-bottom: solid black;
 }
 
 .absolute-bottom-align {
   position: absolute;
-  left: 50%;
-  bottom: 0px;
   width: 500px;
 }
 
 .relative-bottom-align {
+  bottom: 0px;
   position: relative;
   text-align: center;
-  left: -50%;
 }
 
 .logo {
   position: relative;
-  left: 60px;
+  float: left;
 }
 
 .formText {
@@ -29,4 +25,15 @@
 
 .submitButton {
   float: right;
+}
+
+.filter-form {
+  /*position: absolute;*/
+  padding-top: 65px;
+  bottom: 0px;
+}
+
+.buttons {
+  padding-top: 90px;
+  bottom: 0px;
 }
