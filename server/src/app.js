@@ -28,9 +28,9 @@ app.engine('jsx', require("express-react-views").createEngine());
 //
 // });
 
-app.get('/feedback', (req, res) => {
-  res.render('feedback');
-});
+// app.get('/feedback', (req, res) => {
+//  res.render('feedback');
+//}) ;
 
 app.post('/feedback', (req, res) => {
   sgMail.setApiKey(config.sendGridKey);
