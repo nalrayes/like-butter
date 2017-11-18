@@ -1,7 +1,7 @@
 import {ButtonGroup, Media, Image, Button, FormGroup, Label, Input, FormControl, ControlLabel, PageHeader, Grid, Row, Col} from 'react-bootstrap';
 import './App.css'
 const React = require('react');
-const config = require('../config.json');
+const config = require('./config.json');
 
 const imgW = 250;
 const imgH = 125;
