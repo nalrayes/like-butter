@@ -49,7 +49,7 @@ app.post('/feedback', (req, res) => {
 });
 
 app.get('/photos', (req, res) => {
-  res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.append('Access-Control-Allow-Origin', config.host);
   if (req.query.location) {
     console.log(req.query.location);
     Photo.find({location_string: req.query.location}, (err, photos) => {
