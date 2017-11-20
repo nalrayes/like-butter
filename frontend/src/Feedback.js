@@ -1,6 +1,7 @@
 import {ButtonGroup, Media, Image, Button, FormGroup, Label, Input, FormControl, ControlLabel, PageHeader, Grid, Row, Col} from 'react-bootstrap';
 import './App.css'
 const React = require('react');
+const config = require('./config.json');
 
 const imgW = 250;
 const imgH = 125;
@@ -15,7 +16,7 @@ class SiteHeader extends React.Component {
     return(
       <div>
         <Col md={3}>
-          <Image width={imgW} height={imgH} src='http://localhost:3001/static/images/logo.png' responsive/>
+          <Image width={imgW} height={imgH} src={config.host + '/static/images/logo.png'} responsive/>
         </Col>
         <Col md={5}>
           <div className='buttons'>

@@ -2,6 +2,7 @@ import './App.css'
 import {Form, Thumbnail, ButtonGroup, Media, Image, Button, FormGroup, Label, Input, FormControl, ControlLabel, PageHeader, Grid, Row, Col} from 'react-bootstrap';
 const React = require('react');
 const queryString = require('query-string');
+const config = require('./config.json');
 
 const imgW = 250;
 const imgH = 125;
@@ -52,7 +53,7 @@ class SiteHeader extends React.Component {
     return(
       <div>
         <Col md={3}>
-          <Image width={imgW} height={imgH} src='http://localhost:3001/static/images/logo.png' responsive/>
+          <Image width={imgW} height={imgH} src={config.host + "/static/images/logo.png"} responsive/>
         </Col>
         <Col md={4}>
           <div className='filter-form'>
@@ -99,7 +100,7 @@ class Photos extends React.Component {
     const i= 1;
     const listOfUrls = [];
     this.state = {};
-    fetch('http://localhost:3001/photos/')
+    fetch(config.host + '/photos/')
       .then(data => data.json())
       .then(photosFromDb => {
         console.log(photosFromDb);
@@ -127,7 +128,7 @@ class Photos extends React.Component {
     if (this.state.currentUrls) {
       for (let i = 0; i <=this.state.currentUrls.length; i++) {
         const photo = <Photo />;
-        listOfImages.push(React.createElement(Photo, {url: 'http://localhost:3001/' + this.state.currentUrls[i]}));
+        listOfImages.push(React.createElement(Photo, {url: config.host + '/' + this.state.currentUrls[i]}));
       }
     }
     return(
