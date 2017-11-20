@@ -53,7 +53,7 @@ class SiteHeader extends React.Component {
     return(
       <div>
         <Col md={3}>
-          <Image width={imgW} height={imgH} src={config.host + "static/images/logo.png"} responsive/>
+          <Image width={imgW} height={imgH} src={config.host + "/static/images/logo.png"} responsive/>
         </Col>
         <Col md={4}>
           <div className='filter-form'>
@@ -128,7 +128,7 @@ class Photos extends React.Component {
     if (this.state.currentUrls) {
       for (let i = 0; i <=this.state.currentUrls.length; i++) {
         const photo = <Photo />;
-        listOfImages.push(React.createElement(Photo, {url: config.host + this.state.currentUrls[i]}));
+        listOfImages.push(React.createElement(Photo, {url: config.host + '/' + this.state.currentUrls[i]}));
       }
     }
     return(

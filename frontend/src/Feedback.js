@@ -16,7 +16,7 @@ class SiteHeader extends React.Component {
     return(
       <div>
         <Col md={3}>
-          <Image width={imgW} height={imgH} src={config.json + '/static/images/logo.png'} responsive/>
+          <Image width={imgW} height={imgH} src={config.host + '/static/images/logo.png'} responsive/>
         </Col>
         <Col md={5}>
           <div className='buttons'>

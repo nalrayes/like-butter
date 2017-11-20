@@ -30,7 +30,13 @@ app.engine('jsx', require("express-react-views").createEngine());
 
 // app.get('/feedback', (req, res) => {
 //  res.render('feedback');
-//}) ;
+// }) ;
+
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', config.host);
+  // res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next();
+});
 
 app.post('/feedback', (req, res) => {
   sgMail.setApiKey(config.sendGridKey);
@@ -49,7 +55,6 @@ app.post('/feedback', (req, res) => {
 });
 
 app.get('/photos', (req, res) => {
-  res.append('Access-Control-Allow-Origin', config.host);
   if (req.query.location) {
     console.log(req.query.location);
     Photo.find({location_string: req.query.location}, (err, photos) => {
