@@ -1,3 +1,5 @@
+@import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
+
 .top-of-page {
   border-bottom: solid black;
 }
@@ -37,3 +39,73 @@
   padding-top: 90px;
   bottom: 0px;
 }
+/*.carousel {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden;
+}*/
+
+/*.thing img {
+  width: 100%;
+  height: auto;
+}*/
+/*.image-gallery {
+  height: 100%;
+  width: auto;
+}*/
+
+/*#root, .container-fluid, .car, .image-gallery {
+  height: 100%;
+  width: 100%;
+}*/
+.image-gallery-slide img {
+  width: auto;
+  height: 100%;
+}
+.thing img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+}
+
+.preq {
+  position: absolute;
+  float: left;
+}
+
+.next {
+  position: absolute;
+  float: right;
+}
+
+.full-row {
+  height: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/*.center {
+   width: auto;
+   height: auto;
+   max-height: 100%;
+   max-width: 100%;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   margin-left: -150px;
+   margin-top: -150px;
+}*/
+
+
+/*.car img{
+  height:auto;
+  width: auto;
+  background-position:center;
+  background-size:cover;
+}*/
