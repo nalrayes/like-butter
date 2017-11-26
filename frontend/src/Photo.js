@@ -1,5 +1,6 @@
 import './App.css'
 import {Carousel, Grid, Row, Col, Image, Button} from 'react-bootstrap';
+import ResizeDetector from 'react-resize-detector';
 const React = require('react');
 const queryString = require('query-string');
 const config = require('./config.json');
@@ -21,6 +22,7 @@ class TrackedImage extends React.Component {
       }
 
       this.onImgLoad = this.onImgLoad.bind(this);
+      this._onResize = this._onResize.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +37,13 @@ class TrackedImage extends React.Component {
          this.setState({dimensions:{height:img.offsetHeight,
                                     width:img.offsetWidth}});
      }
+
+     _onResize(width, height) {
+       this.setState({divDimensions: {height:height,
+                                      width:width}});
+       }
+
+
 
     render() {
       const {src} = this.props;
@@ -51,6 +60,7 @@ class TrackedImage extends React.Component {
 
       return (
         <div className='img-container' ref={ (divElement) => this.divElement = divElement}>
+          <ResizeDetector handleHeight handleWidth onResize={this._onResize} />
           <Image className='photo' onLoad={this.onImgLoad} src={this.props.currentImage} style={style}/>
         </div>
       )
@@ -61,7 +71,7 @@ class Photo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 1,
+      index: 0,
     };
 
     this.onPrev = this.onPrev.bind(this);
@@ -74,10 +84,10 @@ class Photo extends React.Component {
   }
 
   onNext() {;
-    if (this.index + 1 >= images.length) {
+    if (this.state.index + 1 >= images.length) {
       this.setState({index: 0});
     } else {
-      this.setstate({index: this.state.index + 1});
+      this.setState({index: this.state.index + 1});
     }
   }
 
@@ -102,7 +112,7 @@ class Photo extends React.Component {
             <TrackedImage currentImage={images[this.state.index]} images={images}/>
           </Col>
           <Col md={1} className='next'>
-            <h3>next</h3>
+            <Button onClick={this.onNext}>next</Button>
           </Col>
           <div>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
