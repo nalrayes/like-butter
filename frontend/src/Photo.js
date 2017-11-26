@@ -1,6 +1,5 @@
 import './App.css'
-import {Carousel, Grid, Row, Col} from 'react-bootstrap';
-import ImageGallery from 'react-image-gallery';
+import {Carousel, Grid, Row, Col, Image, Button} from 'react-bootstrap';
 const React = require('react');
 const queryString = require('query-string');
 const config = require('./config.json');
@@ -17,16 +16,19 @@ class TrackedImage extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        images: props.images,
-        currentImageIndex: 0,
-        currentImage: props.images[0],
-        imageClass: "",
         dimensions: {},
+        divDimensions: {},
       }
 
       this.onImgLoad = this.onImgLoad.bind(this);
-      this.nextImage = this.nextImage.bind(this);
-      this.prevImage = this.prevImage.bind(this);
+    }
+
+    componentDidMount() {
+      const height = this.divElement.clientHeight;
+      const width = this.divElement.clientWidth;
+
+      this.setState({divDimensions: {height:height,
+                                     width:width}});
     }
 
      onImgLoad({target:img}) {
@@ -34,43 +36,22 @@ class TrackedImage extends React.Component {
                                     width:img.offsetWidth}});
      }
 
-    nextImage() {
-      let nextImg = this.state.currentImageIndex + 1;
-      if (nextImg >= this.state.images.length) {
-        nextImg = 0;
-      }
-      this.setState ({
-        currentImageIndex: nextImg,
-        currentImage: this.state.images[nextImg],
-      })
-    }
-
-    prevImage() {
-      let prevImage = this.state.currentImageIndex - 1;
-      if (prevImage < 0) {
-        prevImage = this.state.images.length - 1;
-      }
-      this.setState ({
-        currentImageIndex: prevImage,
-        currentImage: this.state.images[prevImage],
-      })
-    }
-
     render() {
       const {src} = this.props;
       const {width, height} = this.state.dimensions;
+      const divWidth = this.state.divDimensions.width;
+      const divHeight = this.state.divDimensions.height;
+
       let style = {width:"100%", height:"100%"};
-      if (width > height) {
-        style = {width:"100%",height:"auto",};
-      } else if (height > width){
-        style= {height:"100%",width:"auto",};
+      if (divHeight / divWidth > height / width) {
+        style = {width:"100%", height: 'auto'};
+      } else {
+        style = {height:"100%",  width: 'auto'};
       }
 
       return (
-        <div>
-        width: {width} <br />
-        height: {height} <br />
-        <img onLoad={this.onImgLoad} src={this.state.currentImage} style={style}/>
+        <div className='img-container' ref={ (divElement) => this.divElement = divElement}>
+          <Image className='photo' onLoad={this.onImgLoad} src={this.props.currentImage} style={style}/>
         </div>
       )
     }
@@ -80,39 +61,45 @@ class Photo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 0,
-      direction: null,
+      index: 1,
     };
 
-    this.handleSelect = this.handleSelect.bind(this);
+    this.onPrev = this.onPrev.bind(this);
+    this.onNext = this.onNext.bind(this);
   }
   getInitialState() {
     return {
       index: 0,
-      direction: null,
     };
   }
 
-  handleSelect(selectedIndex, e) {
-    this.setState({
-      index: selectedIndex,
-      direction: e.direction,
-    });
+  onNext() {;
+    if (this.index + 1 >= images.length) {
+      this.setState({index: 0});
+    } else {
+      this.setstate({index: this.state.index + 1});
+    }
+  }
+
+  onPrev() {
+    // console.log(this.state);
+    if (this.state.index - 1 < 0) {
+      this.setState({index: images.length - 1});
+    } else {
+      this.setState({index: this.state.index - 1});
+    }
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.state.index);
     return (
       <Grid fluid={true} >
-      <Row>
-        <p>/test</p>
-      </Row>
         <Row className='full-row'>
           <Col md={1} className='prev'>
-            <h3>prev</h3>
+            <Button onClick={this.onPrev}>prev</Button>
           </Col>
           <Col md={10} className='car'>
-            <TrackedImage images={images}/>
+            <TrackedImage currentImage={images[this.state.index]} images={images}/>
           </Col>
           <Col md={1} className='next'>
             <h3>next</h3>

@@ -55,10 +55,10 @@
   width: auto;
 }*/
 
-/*#root, .container-fluid, .car, .image-gallery {
+#root, .container-fluid, .car {
   height: 100%;
-  width: 100%;
-}*/
+  /*width: 100%;*/
+}
 .image-gallery-slide img {
   width: auto;
   height: 100%;
@@ -89,7 +89,14 @@ html, body {
     padding: 0;
     height: 100%;
 }
+.car {
+  border: 2px solid;
+}
 
+.img-container {
+  border: 2px solid green;
+  height: 100%;
+}
 /*.center {
    width: auto;
    height: auto;
