@@ -105,13 +105,13 @@ class Photo extends React.Component {
     return (
       <Grid fluid={true} >
         <Row className='full-row'>
-          <Col md={1} className='prev'>
+          <Col md={1} className='side'>
             <Button onClick={this.onPrev}>prev</Button>
           </Col>
           <Col md={10} className='car'>
             <TrackedImage currentImage={images[this.state.index]} images={images}/>
           </Col>
-          <Col md={1} className='next'>
+          <Col md={1} className='side'>
             <Button onClick={this.onNext}>next</Button>
           </Col>
           <div>
