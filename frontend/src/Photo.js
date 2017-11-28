@@ -108,7 +108,7 @@ class Photo extends React.Component {
   render() {
     console.log(this.state.index);
     return (
-      <Grid fluid={true} >
+        <Grid fluid={true} >
         <Row className='full-row'>
           <Col md={1} className='side'>
             <Button onClick={this.onPrev}>prev</Button>

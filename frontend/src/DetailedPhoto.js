@@ -29,17 +29,13 @@ class DetailedPhoto extends React.Component {
       <Grid fluid={true}>
         <Row className='full-row'>
           <Col md={10} className='carLeft'>
-            <div className='car'>
-              <TrackedImage currentImage={photoURL} />
-            </div>
+            <TrackedImage currentImage={photoURL} />
           </Col>
-          <Col md={10} className='side'>
-            <div className='goleft'>
-              {photoDetails.title} <br />
-              {photoDetails.location_string} <br />
-              {photoDetails.camera} <br />
-              {photoDetails.date} <br />
-            </div>
+          <Col md={2} className='side'>
+            {photoDetails.title} <br />
+            {photoDetails.location_string} <br />
+            {photoDetails.camera} <br />
+            {photoDetails.date} <br />
           </Col>
         </Row>
       </Grid>
