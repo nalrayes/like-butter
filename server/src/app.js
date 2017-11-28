@@ -33,7 +33,7 @@ app.engine('jsx', require("express-react-views").createEngine());
 // }) ;
 
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', config.host);
+  // res.append('Access-Control-Allow-Origin', config.host);
   res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
   next();
 });
@@ -62,7 +62,13 @@ app.get('/photos', (req, res) => {
     });
   } else {
     Photo.find((err, photos) => {
-      res.json(photos);
+      if (err) {
+        res.json({'error': err});
+      } else {
+        console.log('photos');
+        console.log(photos);
+        res.json(photos);
+      }
     });
   }
 });

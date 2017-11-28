@@ -84,13 +84,24 @@ class Photo extends React.Component {
   render() {
     return(
       <Col>
+        <a href={this.props.href}>
         <img src={this.props.url} class="photo"/>
+        </a>
       </Col>
     );
   }
 }
 
-
+function createRemianingPhotos(currentI, length) {
+  const l = [];
+  for (let i = currentI; i <= length; i++) {
+    l.push(i);
+  }
+  for (let i = 1; i < currentI; i++) {
+    l.push(i);
+  }
+  return l;
+}
 
 
 class Photos extends React.Component {
@@ -126,9 +137,12 @@ class Photos extends React.Component {
     const i= 1;
     const listOfImages = [];
     if (this.state.currentUrls) {
-      for (let i = 0; i <=this.state.currentUrls.length; i++) {
+      for (let i = 0; i <= this.state.currentUrls.length; i++) {
         const photo = <Photo />;
-        listOfImages.push(React.createElement(Photo, {url: config.host + '/' + this.state.currentUrls[i]}));
+        const url = config.host + '/' + this.state.currentUrls[i];
+        const remain = createRemianingPhotos(i + 1, this.state.currentUrls.length);
+        const href = '/photo/?' + '&photos=' + remain;
+        listOfImages.push(React.createElement(Photo, {href: href, url: url}));
       }
     }
     return(

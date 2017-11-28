@@ -67,11 +67,23 @@ class TrackedImage extends React.Component {
     }
 }
 
+function constructURLsFromIDs(ids) {
+  const urls = [];
+  for (const i in ids) {
+    const cur = ids[i];
+    urls.push(config.host + '/static/photos/' + cur + '.jpg');
+  }
+  return urls;
+}
+
 class Photo extends React.Component {
   constructor(props) {
     super(props);
+    const query = queryString.parse(this.props.location.search);
+    const currentImages = constructURLsFromIDs(query.photos);
     this.state = {
       index: 0,
+      currentImages: currentImages,
     };
 
     this.onPrev = this.onPrev.bind(this);
@@ -109,7 +121,7 @@ class Photo extends React.Component {
             <Button onClick={this.onPrev}>prev</Button>
           </Col>
           <Col md={10} className='car'>
-            <TrackedImage currentImage={images[this.state.index]} images={images}/>
+            <TrackedImage currentImage={this.state.currentImages[this.state.index]} images={images}/>
           </Col>
           <Col md={1} className='side'>
             <Button onClick={this.onNext}>next</Button>
