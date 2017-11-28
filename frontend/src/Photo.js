@@ -5,14 +5,6 @@ const React = require('react');
 const queryString = require('query-string');
 const config = require('./config.json');
 
-const sample1 = 'https://pmcdeadline2.files.wordpress.com/2016/04/danny-devito-curmudgeons.jpg?w=1000&h=1000&crop=1';
-const sample2 = 'https://pmcdeadline2.files.wordpress.com/2016/04/danny-devito-curmudgeons.jpg?w=1000&h=500&crop=1';
-const sample3 = 'https://pmcdeadline2.files.wordpress.com/2016/04/danny-devito-curmudgeons.jpg?w=500&h=1000&crop=1';
-
-const images = [
-sample1, sample2, sample3
-]
-
 class TrackedImage extends React.Component {
     constructor(props) {
       super(props);
@@ -46,12 +38,11 @@ class TrackedImage extends React.Component {
 
 
     render() {
-      const {src} = this.props;
       const {width, height} = this.state.dimensions;
       const divWidth = this.state.divDimensions.width;
       const divHeight = this.state.divDimensions.height;
 
-      let style = {width:"100%", height:"100%"};
+      let style = {width:"100%", height:"100%", display: "none"};
       if (divHeight / divWidth > height / width) {
         style = {width:"100%", height: 'auto'};
       } else {
@@ -67,12 +58,14 @@ class TrackedImage extends React.Component {
     }
 }
 
-function constructURLsFromIDs(ids) {
+function constructURLsFromIDs(unparsedIds) {
+  const ids = unparsedIds.split(',');
   const urls = [];
   for (const i in ids) {
     const cur = ids[i];
     urls.push(config.host + '/static/photos/' + cur + '.jpg');
   }
+  console.log(urls);
   return urls;
 }
 
@@ -96,7 +89,7 @@ class Photo extends React.Component {
   }
 
   onNext() {;
-    if (this.state.index + 1 >= images.length) {
+    if (this.state.index + 1 >= this.state.currentImages.length) {
       this.setState({index: 0});
     } else {
       this.setState({index: this.state.index + 1});
@@ -106,7 +99,7 @@ class Photo extends React.Component {
   onPrev() {
     // console.log(this.state);
     if (this.state.index - 1 < 0) {
-      this.setState({index: images.length - 1});
+      this.setState({index: this.state.currentImages.length - 1});
     } else {
       this.setState({index: this.state.index - 1});
     }
@@ -121,7 +114,7 @@ class Photo extends React.Component {
             <Button onClick={this.onPrev}>prev</Button>
           </Col>
           <Col md={10} className='car'>
-            <TrackedImage currentImage={this.state.currentImages[this.state.index]} images={images}/>
+            <TrackedImage currentImage={this.state.currentImages[this.state.index]}/>
           </Col>
           <Col md={1} className='side'>
             <Button onClick={this.onNext}>next</Button>
@@ -136,4 +129,5 @@ class Photo extends React.Component {
   }
 }
 
-export default Photo;
+export {TrackedImage, Photo};
+// export  Photo;

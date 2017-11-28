@@ -11,7 +11,7 @@ const app = express();
 
 const publicPath = path.resolve(__dirname, "public/") + '/';
 app.use('/static', express.static(publicPath));
-app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
+// app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -71,6 +71,16 @@ app.get('/photos', (req, res) => {
       }
     });
   }
+});
+
+app.get('/api/photo', (req, res) => {
+  Photo.find({name: req.query.name}, (err, photos) => {
+    if (err) {
+      res.json({'error': err});
+    } else {
+      res.json(photos[0]);
+    }
+  });
 });
 
 app.get('/*', (req, res) => {
