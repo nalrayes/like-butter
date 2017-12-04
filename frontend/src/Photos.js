@@ -67,9 +67,6 @@ class SiteHeader extends React.Component {
                 <Button bsStyle='link' href='/'>Home</Button>
               </ButtonGroup>
               <ButtonGroup>
-                <Button bsStyle='link'>About</Button>
-              </ButtonGroup>
-              <ButtonGroup>
                 <Button bsStyle='link' href='/feedback'>Feedback</Button>
               </ButtonGroup>
             </ButtonGroup>
@@ -84,13 +81,25 @@ class Photo extends React.Component {
   render() {
     return(
       <Col>
+        <a href={this.props.href}>
         <img src={this.props.url} class="photo"/>
+        </a>
       </Col>
     );
   }
 }
 
-
+function createRemianingPhotos(currentPhoto, remainingPhotos) {
+  const l = [];
+  const currentI = remainingPhotos.findIndex(photo=> photo == currentPhoto);
+  for (let i = currentI; i < remainingPhotos.length; i++) {
+    l.push(remainingPhotos[i]);
+  }
+  for (let i = 0; i < currentI; i++) {
+    l.push(remainingPhotos[i]);
+  }
+  return l;
+}
 
 
 class Photos extends React.Component {
@@ -104,7 +113,9 @@ class Photos extends React.Component {
       .then(data => data.json())
       .then(photosFromDb => {
         console.log(photosFromDb);
-        this.setState({currentUrls: photosFromDb.map(element => element.endpoint), photosToFilter: photosFromDb});
+        this.setState({currentUrls: photosFromDb.map(element => element.endpoint),
+                        photosToFilter: photosFromDb,
+                        photoList: photosFromDb.map(element => element.name)});
       });
     this.handleImageFilter = this.handleImageFilter.bind(this);
   }
@@ -112,12 +123,16 @@ class Photos extends React.Component {
   handleImageFilter(filterInfo) {
     console.log("FILTER",filterInfo);
     let newCurrentUrls;
+    let newPhotoList;
     if (filterInfo.location === "n/a" || !filterInfo.location) {
       newCurrentUrls = this.state.photosToFilter.map(element => element.endpoint);
+      newPhotoList = this.state.photosToFilter.map(element => element.name);
     } else {
-      newCurrentUrls =  this.state.photosToFilter.filter(element => element.location_string === filterInfo.location).map(element => element.endpoint);
+      const photos =  this.state.photosToFilter.filter(element => element.location_string === filterInfo.location);
+      newCurrentUrls = photos.map(element => element.endpoint);
+      newPhotoList = photos.map(element => element.name);
     }
-    this.setState({currentUrls: newCurrentUrls});
+    this.setState({currentUrls: newCurrentUrls, photoList: newPhotoList});
     console.log(this.state);
   }
 
@@ -126,9 +141,15 @@ class Photos extends React.Component {
     const i= 1;
     const listOfImages = [];
     if (this.state.currentUrls) {
-      for (let i = 0; i <=this.state.currentUrls.length; i++) {
+      for (let i = 0; i < this.state.currentUrls.length; i++) {
         const photo = <Photo />;
-        listOfImages.push(React.createElement(Photo, {url: config.host + '/' + this.state.currentUrls[i]}));
+        const url = config.host + '/' + this.state.currentUrls[i];
+        console.log('creating reamin');
+        console.log(this.state.photoList[i], this.state.photoList);
+        const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
+        console.log(remain);
+        const href = '/photo/?' + '&photos=' + remain;
+        listOfImages.push(React.createElement(Photo, {href: href, url: url}));
       }
     }
     return(

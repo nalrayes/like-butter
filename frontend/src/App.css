@@ -1,3 +1,4 @@
+
 .top-of-page {
   border-bottom: solid black;
 }
@@ -36,4 +37,63 @@
 .buttons {
   padding-top: 90px;
   bottom: 0px;
+}
+
+#root, .container-fluid, .car {
+  height: 100%;
+  background: #FFFAFA;
+  /*width: 100%;*/
+}
+.thing img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+}
+
+
+.full-row {
+  height: 100%;
+  display:flex;
+  flex-direction:row;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+.carLeft {
+  height: 100%;
+  width: 80%;
+}
+.car {
+  width: 100%;
+}
+
+.img-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-side {
+  border-left: 3px solid;
+}
+
+.left-side {
+  border-right: 3px solid;
+}
+
+.details {
+  width: 20%;
+  /*border-left: 3px solid;*/
+  background-color: #594583;
+  text-align: center;
+}
+
+.details h2, .details h4 {
+  color: #FFFAFA;
 }
