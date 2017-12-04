@@ -34,8 +34,8 @@ app.engine('jsx', require("express-react-views").createEngine());
 // }) ;
 
 app.use((req, res, next) => {
-  // res.append('Access-Control-Allow-Origin', config.host);
-  res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.append('Access-Control-Allow-Origin', config.host);
+  // res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
   next();
 });
 
