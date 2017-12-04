@@ -7,6 +7,7 @@ const config = require('../config.json');
 const mongoose = require('mongoose');
 const Feedback = mongoose.model('Feedback');
 const Photo = mongoose.model('Photo');
+const Song = mongoose.model('Song');
 const app = express();
 
 const publicPath = path.resolve(__dirname, "public/") + '/';
@@ -78,8 +79,22 @@ app.get('/api/photo', (req, res) => {
     if (err) {
       res.json({'error': err});
     } else {
-      res.json(photos[0]);
+      const currentSongId = photos[0].song_id;
+      Song.find({_id: currentSongId}, (err, songs) =>{
+        if (err) {
+          res.json({'error': err});
+        } else {
+          photos[0]._doc.uri = songs[0].uri;
+          res.json(photos[0]);
+        }
+      });
     }
+  });
+});
+
+app.get('/api/songs', (req, res) => {
+  Song.find((err, songs) => {
+    res.json(songs);
   });
 });
 

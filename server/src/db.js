@@ -19,13 +19,20 @@ const Photo = new Schema({
 });
 
 const Song = new Schema({
-  url: String,
+  album: {
+    id: String,
+    name: String
+  },
+  artists: [{
+    id: String,
+    name: String
+  }],
+  href: String,
   track_id: String,
-  title: String,
-  album: String,
-  artist: String,
+  name: String,
+  linked_photos: [String],
   linked_photo_ids: [Schema.Types.ObjectId],
-  genre: String,
+  uri: String,
 });
 
 const Location = new Schema({
@@ -43,4 +50,5 @@ const Feedback = new Schema({
 
 mongoose.model('Feedback', Feedback);
 mongoose.model('Photo', Photo);
+mongoose.model('Song', Song);
 mongoose.connect(config.dburl);

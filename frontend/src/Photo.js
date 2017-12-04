@@ -5,6 +5,52 @@ const React = require('react');
 const queryString = require('query-string');
 const config = require('./config.json');
 
+// class DetailedPhoto extends React.Component {
+//   /*
+//   For going back:
+//   check the last page. If last page was /photos/, have
+//   back button go to url with current photo in front.
+//   if not go to /photos/ with all photos.
+//   */
+//   constructor(props) {
+//     super(props);
+//     const photoNum = this.props.name;
+//     this.state = {
+//       'photo': photoNum,
+//       'photoDetails': {}};
+//     console.log(this.state);
+//     fetch(config.host + '/api/photo?name=' + photoNum)
+//       .then(data => data.json())
+//       .then(photo => {
+//         this.setState({'photoDetails': photo});
+//       });
+//   }
+//
+//   render () {
+//     const photoDetails = this.state.photoDetails;
+//     const photoURL = config.host + '/static/photos/' + this.state.photo + '.jpg';
+//     const spotifyURL = "https://open.spotify.com/embed?uri=" + this.state.photoDetails.uri;
+//     // const {goBack} = this.props.navigation;
+//     return (
+//       <Grid fluid={true}>
+//         <Row className='full-row'>
+//           <Col md={15} className='carLeft'>
+//             <Button onClick={this.}>leave</Button>
+//             <TrackedImage currentImage={photoURL} />
+//           </Col>
+//           <Col md={2} className='details'>
+//             <h2>{photoDetails.title}</h2> <br />
+//             <iframe src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
+//             <h4> {photoDetails.location_string}</h4> <br />
+//             <h4> {photoDetails.camera} </h4> <br />
+//             <h4> {photoDetails.date} </h4> <br />
+//           </Col>
+//         </Row>
+//       </Grid>
+//     )
+//   }
+// }
+
 class TrackedImage extends React.Component {
     constructor(props) {
       super(props);
@@ -58,30 +104,35 @@ class TrackedImage extends React.Component {
     }
 }
 
-function constructURLsFromIDs(unparsedIds) {
-  const ids = unparsedIds.split(',');
-  const urls = [];
-  for (const i in ids) {
-    const cur = ids[i];
-    urls.push(config.host + '/static/photos/' + cur + '.jpg');
-  }
-  console.log(urls);
-  return urls;
-}
-
 class Photo extends React.Component {
   constructor(props) {
     super(props);
-    const query = queryString.parse(this.props.location.search);
-    const currentImages = constructURLsFromIDs(query.photos);
+    const unparsedIds = queryString.parse(this.props.location.search).photos;
+    const ids = unparsedIds.split(',');
+    const urls = [];
+    for (const i in ids) {
+      const cur = ids[i];
+      urls.push(config.host + '/static/photos/' + cur + '.jpg');
+    }
+
     this.state = {
       index: 0,
-      currentImages: currentImages,
+      currentImages: urls,
+      detailed: false,
+      photoDetails: {},
+      photoList: ids,
     };
+
 
     this.onPrev = this.onPrev.bind(this);
     this.onNext = this.onNext.bind(this);
+    this.toggleDetail = this.toggleDetail.bind(this);
+    this.getPhotoDetails = this.getPhotoDetails.bind(this);
+
+    // so that photodetails has something to start with
+    this.getPhotoDetails();
   }
+
   getInitialState() {
     return {
       index: 0,
@@ -105,27 +156,76 @@ class Photo extends React.Component {
     }
   }
 
+  toggleDetail() {
+    console.log("COME DONW");
+    console.log(this.state);
+    const detailed = this.state.detailed;
+    if (detailed) {
+      this.setState({detailed: false});
+    } else {
+      this.getPhotoDetails();
+      this.setState({detailed: true});
+    }
+  }
+
+  getPhotoDetails() {
+    fetch(config.host + '/api/photo?name=' + this.state.photoList[this.state.index])
+      .then(data => data.json())
+      .then(photo => {
+        this.setState({'photoDetails': photo});
+      });
+  }
+
+  goHope() {
+
+  }
+
   render() {
-    console.log(this.state.index);
-    return (
+    if (!this.state.detailed) {
+      return (
         <Grid fluid={true} >
         <Row className='full-row'>
-          <Col md={1} className='left-side'>
-            <Button onClick={this.onPrev}>prev</Button>
-          </Col>
-          <Col md={10} className='car'>
-            <TrackedImage currentImage={this.state.currentImages[this.state.index]}/>
-          </Col>
-          <Col md={1} className='right-side'>
-            <Button onClick={this.onNext}>next</Button>
-          </Col>
-          <div>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-          </div>
+        <Col md={1} className='left-side'>
+        <Button onClick={this.onPrev}>prev</Button>
+        <Button href='/'>home</Button>
+        </Col>
+        <Col md={10} className='car'>
+        <TrackedImage currentImage={this.state.currentImages[this.state.index]}/>
+        </Col>
+        <Col md={1} className='right-side'>
+        <Button onClick={this.onNext}>next</Button>
+        <Button onClick={this.toggleDetail}>detailed</Button>
+        </Col>
+        <div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        </div>
         </Row>
-      </Grid>
-    );
+        </Grid>
+      );
+    } else {
+      const photoDetails = this.state.photoDetails;
+      const photoURL = config.host + '/static/photos/' + this.state.photoList[this.state.index] + '.jpg';
+      const spotifyURL = "https://open.spotify.com/embed?uri=" + this.state.photoDetails.uri;
+      // const {goBack} = this.props.navigation;
+      return (
+        <Grid fluid={true}>
+          <Row className='full-row'>
+            <Col md={1} className='carLeft'>
+              <TrackedImage currentImage={photoURL} />
+            </Col>
+            <Col md={10} className='details'>
+              <h2>{photoDetails.title}</h2> <br />
+              <iframe src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
+              <h4> {photoDetails.location_string}</h4> <br />
+              <h4> {photoDetails.camera} </h4> <br />
+              <h4> {photoDetails.date} </h4> <br />
+              <Button onClick={this.toggleDetail}>leave</Button>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    }
   }
 }
 
