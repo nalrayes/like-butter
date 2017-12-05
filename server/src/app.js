@@ -12,7 +12,7 @@ const app = express();
 
 const publicPath = path.resolve(__dirname, "public/") + '/';
 app.use('/static', express.static(publicPath));
-// app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
+app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -34,8 +34,8 @@ app.engine('jsx', require("express-react-views").createEngine());
 // }) ;
 
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', config.host);
-  // res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  // res.append('Access-Control-Allow-Origin', config.host);
+  res.append('Access-Control-Allow-Origin', 'http://localhost:3000');
   next();
 });
 
@@ -98,7 +98,7 @@ app.get('/api/songs', (req, res) => {
   });
 });
 
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../../frontend/build/index.html'));
 });
 //
