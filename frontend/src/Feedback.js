@@ -25,9 +25,6 @@ class SiteHeader extends React.Component {
                 <Button bsStyle='link' href='/'>Home</Button>
               </ButtonGroup>
               <ButtonGroup>
-                <Button bsStyle='link'>About</Button>
-              </ButtonGroup>
-              <ButtonGroup>
                 <Button bsStyle='link' href='/feedback'>Feedback</Button>
               </ButtonGroup>
             </ButtonGroup>
