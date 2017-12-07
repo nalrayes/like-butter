@@ -1,4 +1,4 @@
-import {ButtonGroup, Media, Image, Button, FormGroup, Label, Input, FormControl, ControlLabel, PageHeader, Grid, Row, Col} from 'react-bootstrap';
+import {ButtonGroup, Image, Button, FormGroup, FormControl, ControlLabel, PageHeader, Grid, Row, Col} from 'react-bootstrap';
 import './App.css'
 const React = require('react');
 const config = require('./config.json');
@@ -6,11 +6,7 @@ const config = require('./config.json');
 const imgW = 250;
 const imgH = 125;
 
-// <Media>
-//   <Media.Left>
-//     <img width={imgW} height={imgH }src='/static/images/logo.png' />
-//   </Media.Left>
-// </Media>
+
 class SiteHeader extends React.Component {
   render() {
     return(

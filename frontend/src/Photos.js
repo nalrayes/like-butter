@@ -1,13 +1,10 @@
 import './App.css'
-import {Form, Thumbnail, ButtonGroup, Media, Image, Button, FormGroup, Label, Input, FormControl, ControlLabel, PageHeader, Grid, Row, Col} from 'react-bootstrap';
+import {Form, ButtonGroup, Label, Image, Button, FormGroup, FormControl, ControlLabel, Grid, Row, Col} from 'react-bootstrap';
 const React = require('react');
-const queryString = require('query-string');
 const config = require('./config.json');
 
 const imgW = 250;
 const imgH = 125;
-
-let currentImageURLS = [];
 
 class FilterForm extends React.Component {
   constructor(props) {
@@ -53,7 +50,7 @@ class SiteHeader extends React.Component {
     return(
       <div>
         <Col md={3}>
-          <Image width={imgW} height={imgH} src={config.host + "/static/images/logo.png"} responsive/>
+          <Image width={imgW}  height={imgH} src={config.host + "/static/images/logo.png"} responsive/>
         </Col>
         <Col md={4}>
           <div className='filter-form'>
@@ -82,7 +79,7 @@ class Photo extends React.Component {
     return(
       <Col>
         <a href={this.props.href}>
-        <img src={this.props.url} class="photo"/>
+        <img src={this.props.url} alt='oops' class="photo"/>
         </a>
       </Col>
     );
@@ -91,7 +88,7 @@ class Photo extends React.Component {
 
 function createRemianingPhotos(currentPhoto, remainingPhotos) {
   const l = [];
-  const currentI = remainingPhotos.findIndex(photo=> photo == currentPhoto);
+  const currentI = remainingPhotos.findIndex(photo=> photo === currentPhoto);
   for (let i = currentI; i < remainingPhotos.length; i++) {
     l.push(remainingPhotos[i]);
   }
@@ -106,8 +103,6 @@ class Photos extends React.Component {
 
   constructor(props) {
     super(props);
-    const i= 1;
-    const listOfUrls = [];
     this.state = {};
     fetch(config.host + '/photos/')
       .then(data => data.json())
@@ -138,17 +133,15 @@ class Photos extends React.Component {
 
   render() {
     console.log("render called! state", this.state);
-    const i= 1;
     const listOfImages = [];
     if (this.state.currentUrls) {
       for (let i = 0; i < this.state.currentUrls.length; i++) {
-        const photo = <Photo />;
         const url = config.host + '/' + this.state.currentUrls[i];
         console.log('creating reamin');
         console.log(this.state.photoList[i], this.state.photoList);
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
         console.log(remain);
-        const href = '/photo/?' + '&photos=' + remain;
+        const href = '/photo/?&photos=' + remain;
         listOfImages.push(React.createElement(Photo, {href: href, url: url}));
       }
     }

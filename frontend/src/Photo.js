@@ -1,55 +1,10 @@
 import './App.css'
-import {Carousel, Grid, Row, Col, Image, Button} from 'react-bootstrap';
+import {Grid, Row, Col, Image, Button} from 'react-bootstrap';
 import ResizeDetector from 'react-resize-detector';
 const React = require('react');
 const queryString = require('query-string');
 const config = require('./config.json');
 
-// class DetailedPhoto extends React.Component {
-//   /*
-//   For going back:
-//   check the last page. If last page was /photos/, have
-//   back button go to url with current photo in front.
-//   if not go to /photos/ with all photos.
-//   */
-//   constructor(props) {
-//     super(props);
-//     const photoNum = this.props.name;
-//     this.state = {
-//       'photo': photoNum,
-//       'photoDetails': {}};
-//     console.log(this.state);
-//     fetch(config.host + '/api/photo?name=' + photoNum)
-//       .then(data => data.json())
-//       .then(photo => {
-//         this.setState({'photoDetails': photo});
-//       });
-//   }
-//
-//   render () {
-//     const photoDetails = this.state.photoDetails;
-//     const photoURL = config.host + '/static/photos/' + this.state.photo + '.jpg';
-//     const spotifyURL = "https://open.spotify.com/embed?uri=" + this.state.photoDetails.uri;
-//     // const {goBack} = this.props.navigation;
-//     return (
-//       <Grid fluid={true}>
-//         <Row className='full-row'>
-//           <Col md={15} className='carLeft'>
-//             <Button onClick={this.}>leave</Button>
-//             <TrackedImage currentImage={photoURL} />
-//           </Col>
-//           <Col md={2} className='details'>
-//             <h2>{photoDetails.title}</h2> <br />
-//             <iframe src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
-//             <h4> {photoDetails.location_string}</h4> <br />
-//             <h4> {photoDetails.camera} </h4> <br />
-//             <h4> {photoDetails.date} </h4> <br />
-//           </Col>
-//         </Row>
-//       </Grid>
-//     )
-//   }
-// }
 
 class TrackedImage extends React.Component {
     constructor(props) {
@@ -216,7 +171,7 @@ class Photo extends React.Component {
             </Col>
             <Col md={1} className='details'>
               <h2>{photoDetails.title}</h2> <br />
-              <iframe src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
+              <iframe title='Song' src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
               <h4> {photoDetails.location_string}</h4> <br />
               <h4> {photoDetails.camera} </h4> <br />
               <h4> {photoDetails.date} </h4> <br />

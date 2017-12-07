@@ -55,6 +55,16 @@ An Example Song:
 
 ```
 
+Sample Feedback:
+``` javascript
+{
+  "_id" : ObjectId("5a06406b5080e807e46504cb"),
+  "from" : "You",
+  "text" : "These photos are cool!",
+  "__v" : 0 
+}
+
+```
 
 ## [Link to First Draft Schema](db.js)
 
