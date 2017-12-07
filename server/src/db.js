@@ -35,13 +35,7 @@ const Song = new Schema({
   uri: String,
 });
 
-const Location = new Schema({
-  name: String,
-  country: String,
-  city: String,
-  state: String,
-  stringRep: String,
-});
+
 
 const Feedback = new Schema({
   from: String,

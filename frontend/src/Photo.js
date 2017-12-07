@@ -211,10 +211,10 @@ class Photo extends React.Component {
       return (
         <Grid fluid={true}>
           <Row className='full-row'>
-            <Col md={1} className='carLeft'>
+            <Col md={10} className='carLeft'>
               <TrackedImage currentImage={photoURL} />
             </Col>
-            <Col md={10} className='details'>
+            <Col md={1} className='details'>
               <h2>{photoDetails.title}</h2> <br />
               <iframe src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
               <h4> {photoDetails.location_string}</h4> <br />
