@@ -11,74 +11,48 @@ God bless.
 The application will store Photos, Albums, Locations, and Songs.
 
 * photos have all the technical details about them, a title, and one linked song, one linked album, one linked location, as well as an endpoint where the picture will be stored.
-* albums will have a list of photos by id, and a title.
 * songs have a title, artist, album, link for the spotify api, and at least one linked photo.
-* locations have a name, city, state, and country
 
 An Example Photo:
 
 ```javascript
 {
-  _id: "1";
-  name: "IMG_8209",
-  title: "gravity eyelids",
-  date: Date("2017-07-01"),
-  location_id: "1",
-  location_string: "Sutro Baths, San Fransisco, CA, USA",
-  camera: "Canon Rebel T6i",
-  lens: "Canon 18-135mm f/3.5-5.6 IS STM",
-  ISO: 100,
-  focal_length: 18.0,
-  aperture: "f/5.0",
-  exposure_time: "1/250 sec",
-  source_album_id: "1",
-  source_album_name: "SF",
-  song_id: "1", // no song name, since all the details would come from the spotify api
-  endpoint: "/photos/1.jpg",
+  "_id" : ObjectId("5a0bea7007ed3ff16c050246"),
+  "name" : "8",
+  "title" : "rainbows",
+  "date" : ISODate("2017-05-26T01:45:20.201Z"),
+  "location_string" : "San Fransisco, CA",
+  "camera" : "Canon Rebel T6i",
+  "ISO" : 100,
+  "focal_length" : 18,
+  "aperture" : "f/16.0",
+  "exposure_time" : "1/400",
+  "endpoint" : "static/photos/8.jpg",
+  "song_id" : ObjectId("5a238871ab2a32f9edc9fbfc")
 }
-```
 
-An Example Album:
-
-``` javascript
-{
-  _id: "1",
-  album_name: "SF",
-  list_of_photo_ids: [
-    "1",
-    "2",
-    "3",
-    "4",
-  ],
-  album_endpoint_name: "SF",
-}
 ```
 
 An Example Song:
 
-
-```javascript
+``` javascript
 {
-  _id: "1",
-  url: "https://api.spotify.com/v1/tracks/2dAYkfqPYzOTDNxDDVP2vi",
-  track_id: "2dAYkfqPYzOTDNxDDVP2vi",
-  title: "Gravity Eyelids",
-  album: "In Abstentia",
-  artist: "Porcupine Tree",
-  linked_photo_ids: ["1"],
-}
-```
+   "_id" : ObjectId("5a238871ab2a32f9edc9fbfc"),
+   "album" : { "id" : "61809gZj46tFYs0g4s51nu",
+   "name" : "Madvillainy" },
+   "artists" : [
+     {
+       "id" : "2aoFQUeHD1U7pL098lRsDU",
+       "name" : "Madvillain"
+     }
+   ],
+   "href" : "https://api.spotify.com/v1/tracks/7aheCJTgZydWp7D0BWgrpc",
+   "id" : "7aheCJTgZydWp7D0BWgrpc",
+   "name" : "Rainbows",
+   "uri" : "spotify:track:7aheCJTgZydWp7D0BWgrpc",
+   "linked_photos" : [ "8" ]
+ }
 
-An Example Location:
-
-```javascript
-{
-  _id: "1",
-  name: "Sutro Baths",
-  country: "USA",
-  city: "San Fransisco",
-  state: "CA",
-}
 ```
 
 
@@ -86,30 +60,7 @@ An Example Location:
 
 ## Wireframes
 
-/ - home page that includes a specific set of photos
-
-![list create](documentation/Home.png)
-
-/albums - page for showing all albums
-
-![list](documentation/Albums.png)
-
-/album?album_id={album_id} - page for showing specific album
-
-![list](documentation/Album.png)
-
-/photos?photo_id={photo_id} - page for showing specific photo
-![list](documentation/Photo.png)
-
-detailed view of the same page, that includes all the photo information
-![list](documentation/DetailedView.png)
-
-/about - about page
-![list](documentation/About.png)
-
-## Site map
-
-![photo](documentation/site-map.png)
+[These were removed since they didn't accurately represent the site anymore.]
 
 ## User Stories or Use Cases
 
