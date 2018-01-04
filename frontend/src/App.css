@@ -107,16 +107,20 @@ html, body {
 .all-images {
   display: flex;
   flex-wrap: wrap;
-  min-height: 25em;
-  max-height: 20em;
 }
 
 .photo {
   /*object-fit: cover;*/
-
+  height: 25em;
   float: left;
   overflow: hidden;
   /*padding: 2px;*/
+}
+
+.photos-flex {
+  display: flex;
+  max-height: 30em;
+  min-height: 25em;
 }
 
 /*.photoWrapper {

@@ -75,34 +75,27 @@ class SiteHeader extends React.Component {
 }
 
 class Photo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hovering: false,
-    }
-    this.setHoverTrue = this.setHoverTrue.bind(this);
-    this.setHoverFalse = this.setHoverFalse.bind(this);
-  }
   render() {
     const name = "photoWrapper" + this.props.num;
     const cssName = "." + name;
     return(
-        <Col onMouseEnter={this.setHoverTrue} onMouseLeave={this.setHoverFalse}>
+        <Col>
           <a href={this.props.href}>
               <img src={this.props.url} alt='oops' class="photo" />
           </a>
         </Col>
     );
   }
+}
 
-  setHoverTrue() {
-    this.setState({hovering: true})
+class PhotoRow extends React.Component {
+  render() {
+    return(
+      <div className='photos-flex'>
+        {this.props.images}
+      </div>
+    )
   }
-
-  setHoverFalse() {
-    this.setState({hovering: false})
-  }
-
 }
 
 function createRemianingPhotos(currentPhoto, remainingPhotos) {
@@ -161,8 +154,19 @@ class Photos extends React.Component {
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
         console.log(remain);
         const href = '/photo/?&photos=' + remain;
+        // create number of divs necessary to fill page, 4 photos per div
         listOfImages.push(React.createElement(Photo, {href: href, url: url, num: i}));
       }
+    }
+    let listOfDivs = [];
+    for (let i = 0; i < listOfImages.length; i+=4) {
+      let limit;
+      if (i + 4 > listOfImages.length) {
+        limit = listOfImages.length;
+      } else {
+        limit = i + 4;
+      }
+      listOfDivs.push(React.createElement(PhotoRow, {images: listOfImages.slice(i, limit)}));
     }
     return(
       <Grid fluid={true}>
@@ -177,7 +181,7 @@ class Photos extends React.Component {
         </div>
         <Row className='show-grid'>
           <div className='all-images'>
-            {listOfImages}
+            {listOfDivs}
           </div>
         </Row>
       </Grid>
