@@ -170,12 +170,14 @@ class Photo extends React.Component {
               <TrackedImage currentImage={photoURL} />
             </Col>
             <Col md={1} className='details'>
-              <h2>{photoDetails.title}</h2> <br />
-              <iframe title='Song' src={spotifyURL} width="90%" height="100" frameborder="0" allowtransparency="true"></iframe>
-              <h4> {photoDetails.location_string}</h4> <br />
-              <h4> {photoDetails.camera} </h4> <br />
-              <h4> {photoDetails.date} </h4> <br />
-              <Button onClick={this.toggleDetail}>leave</Button>
+              <div className='in-details'>
+                <h1>{photoDetails.title}</h1>
+                <iframe title='Song' src={spotifyURL} width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+                <h4> {photoDetails.location_string}</h4>
+                <h4> {photoDetails.camera} </h4>
+                <h4> {photoDetails.date} </h4>
+                <Button onClick={this.toggleDetail}>leave</Button>
+              </div>
             </Col>
           </Row>
         </Grid>

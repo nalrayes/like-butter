@@ -75,15 +75,34 @@ class SiteHeader extends React.Component {
 }
 
 class Photo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hovering: false,
+    }
+    this.setHoverTrue = this.setHoverTrue.bind(this);
+    this.setHoverFalse = this.setHoverFalse.bind(this);
+  }
   render() {
+    const name = "photoWrapper" + this.props.num;
+    const cssName = "." + name;
     return(
-      <Col>
-        <a href={this.props.href}>
-        <img src={this.props.url} alt='oops' class="photo"/>
-        </a>
-      </Col>
+        <Col onMouseEnter={this.setHoverTrue} onMouseLeave={this.setHoverFalse}>
+          <a href={this.props.href}>
+              <img src={this.props.url} alt='oops' class="photo" />
+          </a>
+        </Col>
     );
   }
+
+  setHoverTrue() {
+    this.setState({hovering: true})
+  }
+
+  setHoverFalse() {
+    this.setState({hovering: false})
+  }
+
 }
 
 function createRemianingPhotos(currentPhoto, remainingPhotos) {
@@ -142,7 +161,7 @@ class Photos extends React.Component {
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
         console.log(remain);
         const href = '/photo/?&photos=' + remain;
-        listOfImages.push(React.createElement(Photo, {href: href, url: url}));
+        listOfImages.push(React.createElement(Photo, {href: href, url: url, num: i}));
       }
     }
     return(
@@ -151,18 +170,15 @@ class Photos extends React.Component {
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
         </div>
-        <style dangerouslySetInnerHTML={{__html: `
-          .photo { height: 350px; float: left }
-        `}} />
         <div className='top-of-page'>
           <Row className='show-grid'>
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
         <Row className='show-grid'>
-          <ul>
+          <div className='all-images'>
             {listOfImages}
-          </ul>
+          </div>
         </Row>
       </Grid>
     );

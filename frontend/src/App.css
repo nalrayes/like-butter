@@ -91,9 +91,36 @@ html, body {
   width: 20%;
   /*border-left: 3px solid;*/
   background-color: #594583;
-  text-align: center;
+  text-align: left;
+}
+
+.in-details {
+  padding: 3%;
+  font-family: 'Raleway', sans-serif;
+  /*font-weight:500;*/
 }
 
 .details h2, .details h4 {
   color: #FFFAFA;
 }
+
+.all-images {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 25em;
+  max-height: 20em;
+}
+
+.photo {
+  /*object-fit: cover;*/
+
+  float: left;
+  overflow: hidden;
+  /*padding: 2px;*/
+}
+
+/*.photoWrapper {
+  width: 20%;
+  float: left;
+  overflow: hidden;
+}*/
