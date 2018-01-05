@@ -79,7 +79,7 @@ class Photo extends React.Component {
     const name = "photoWrapper" + this.props.num;
     const cssName = "." + name;
     return(
-        <Col>
+        <Col className='photo-container'>
           <a href={this.props.href}>
               <img src={this.props.url} alt='oops' class="photo" />
           </a>
