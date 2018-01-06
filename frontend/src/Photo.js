@@ -131,10 +131,6 @@ class Photo extends React.Component {
       });
   }
 
-  goHope() {
-
-  }
-
   render() {
     if (!this.state.detailed) {
       return (
