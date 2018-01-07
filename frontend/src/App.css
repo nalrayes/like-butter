@@ -109,6 +109,11 @@ html, body {
   /*flex-wrap: wrap;*/
   min-width: 100%;
   max-width: 100%;
+  /*background-color: black;*/
+  background-image: url('BGimp.png');
+  background-repeat: repeat;
+  background-size: 25px 25px;
+
 }
 
 .photo {
