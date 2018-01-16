@@ -1,5 +1,6 @@
 import './App.css'
 import {Form, ButtonGroup, Label, Image, Button, FormGroup, FormControl, ControlLabel, Grid, Row, Col} from 'react-bootstrap';
+import Gallery from 'react-grid-gallery';
 const React = require('react');
 const config = require('./config.json');
 
@@ -148,10 +149,12 @@ class Photos extends React.Component {
   render() {
     console.log("render called! state", this.state);
     const listOfImages = [];
+    const listOfURLs = [];
     if (this.state.currentUrls) {
       for (let i = 0; i < this.state.currentUrls.length; i++) {
         const url = config.host + '/' + this.state.currentUrls[i];
         console.log('creating reamin');
+        listOfURLs.push(url);
         console.log(this.state.photoList[i], this.state.photoList);
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
         console.log(remain);
@@ -160,6 +163,16 @@ class Photos extends React.Component {
         listOfImages.push(React.createElement(Photo, {href: href, url: url, num: i}));
       }
     }
+
+    const listForGallery = listOfURLs.map((url) => {
+      return {
+        src: url,
+        thumbnail: url,
+        thumbnailWidth: "100%",
+        thumbnailHeight: "auto",
+      }
+    })
+
     let listOfDivs = [];
     for (let i = 0; i < listOfImages.length; i+=4) {
       let limit;
@@ -181,11 +194,7 @@ class Photos extends React.Component {
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <Row className='show-grid'>
-          <div className='all-images'>
-            {listOfDivs}
-          </div>
-        </Row>
+        
       </Grid>
     );
   }
