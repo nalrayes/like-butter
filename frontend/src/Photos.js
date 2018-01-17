@@ -1,6 +1,6 @@
 import './App.css'
 import {Form, ButtonGroup, Label, Image, Button, FormGroup, FormControl, ControlLabel, Grid, Row, Col} from 'react-bootstrap';
-import Gallery from 'react-grid-gallery';
+import Gallery from './react-grid-gallery/src/Gallery.js';
 const React = require('react');
 const config = require('./config.json');
 
@@ -149,12 +149,19 @@ class Photos extends React.Component {
   render() {
     console.log("render called! state", this.state);
     const listOfImages = [];
-    const listOfURLs = [];
+    const listForGallery = [];
     if (this.state.currentUrls) {
       for (let i = 0; i < this.state.currentUrls.length; i++) {
         const url = config.host + '/' + this.state.currentUrls[i];
         console.log('creating reamin');
-        listOfURLs.push(url);
+        listForGallery.push(
+          {
+            src: url,
+            thumbnail: url,
+            thumbnailWidth: this.state.photosToFilter[i].width,
+            thumbnailHeight: this.state.photosToFilter[i].height,
+          }
+        );
         console.log(this.state.photoList[i], this.state.photoList);
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
         console.log(remain);
@@ -164,25 +171,22 @@ class Photos extends React.Component {
       }
     }
 
-    const listForGallery = listOfURLs.map((url) => {
-      return {
-        src: url,
-        thumbnail: url,
-        thumbnailWidth: "100%",
-        thumbnailHeight: "auto",
-      }
-    })
-
-    let listOfDivs = [];
-    for (let i = 0; i < listOfImages.length; i+=4) {
-      let limit;
-      if (i + 4 > listOfImages.length) {
-        limit = listOfImages.length;
-      } else {
-        limit = i + 4;
-      }
-      listOfDivs.push(React.createElement(PhotoRow, {images: listOfImages.slice(i, limit)}));
-    }
+    // let listOfDivs = [];
+    // for (let i = 0; i < listForGallery.length; i+=4) {
+    //   let limit;
+    //   if (i + 4 > listForGallery.length) {
+    //     limit = listForGallery.length;
+    //   } else {
+    //     limit = i + 4;
+    //   }
+    //   // figure out best height
+    //   let curImages = listForGallery.slice(i, limit);
+    //   let totalWidth = listForGallery.reduce((acc, cur) => (cur.thumbnailWidth/cur.thumbnailHeight) + acc, 0) / 4;
+    //   console.log("WIDTH: " + totalWidth);
+    //   let scaledHeight = 350;
+    //   listOfDivs.push(React.createElement(Gallery, {images: listForGallery.slice(i, limit), rowHeight: scaledHeight}));
+    //   listOfDivs.push(<div></div>)
+    // }
     return(
       <Grid fluid={true}>
         <div>
@@ -194,7 +198,7 @@ class Photos extends React.Component {
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        
+        <Gallery images={listForGallery} rowHeight={450} margin={1} />
       </Grid>
     );
   }
