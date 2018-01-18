@@ -151,15 +151,19 @@ class Photos extends React.Component {
     const listOfImages = [];
     const listForGallery = [];
     if (this.state.currentUrls) {
-      for (let i = 0; i < this.state.currentUrls.length; i++) {
+      for (let i = 0; i < this.state.photoList.length; i++) {
         const url = config.host + '/' + this.state.currentUrls[i];
         console.log('creating reamin');
+        // console.log("currentUrls", this.state.currentUrls);
+        // console.log("photoList", this.state.photoList);
+        const photoIndex = parseInt(this.state.photoList[i]) - 1;
+        console.log(photoIndex);
         listForGallery.push(
           {
             src: url,
             thumbnail: url,
-            thumbnailWidth: this.state.photosToFilter[i].width,
-            thumbnailHeight: this.state.photosToFilter[i].height,
+            thumbnailWidth: this.state.photosToFilter[photoIndex].width,
+            thumbnailHeight: this.state.photosToFilter[photoIndex].height,
           }
         );
         console.log(this.state.photoList[i], this.state.photoList);
@@ -198,7 +202,7 @@ class Photos extends React.Component {
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <Gallery images={listForGallery} rowHeight={450} margin={1} />
+        <Gallery images={listForGallery} rowHeight={350} margin={2} />
       </Grid>
     );
   }

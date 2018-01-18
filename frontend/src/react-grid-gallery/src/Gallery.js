@@ -171,6 +171,7 @@ class Gallery extends Component {
     buildImageRow (items, containerWidth) {
         var row = [];
         var len = 0;
+        let lenNoMargin = 0;
         var imgMargin = 2 * this.props.margin;
         while(items.length > 0 && len < containerWidth) {
             var item = items.shift();
@@ -179,9 +180,9 @@ class Gallery extends Component {
         }
 
         var delta = len - containerWidth;
-        if(row.length > 0 && delta > 0) {
+        if(delta > 0) {
             // added by me
-            const newHeight = this.calculateNewHeight(len, containerWidth);
+            const newHeight = this.calculateNewHeight(len, containerWidth, imgMargin);
             // done
             // var cutoff = this.calculateCutOff(len, delta, row);
             for(var i in row) {
@@ -208,8 +209,8 @@ class Gallery extends Component {
     }
 
     // added by me
-    calculateNewHeight(len, containerWidth) {
-      const totalScaleWidth = len / this.props.rowHeight;
+    calculateNewHeight(len, containerWidth, margin) {
+      const totalScaleWidth = len / (this.props.rowHeight - margin);
       return Math.floor(containerWidth / totalScaleWidth);
     }
 
