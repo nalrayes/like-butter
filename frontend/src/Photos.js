@@ -178,6 +178,7 @@ class Photos extends React.Component {
             thumbnailWidth: this.state.photosToFilter[photoIndex].width,
             thumbnailHeight: this.state.photosToFilter[photoIndex].height,
             photoView: href,
+            caption: this.state.photosToFilter[photoIndex].title,
           }
         );
         // create number of divs necessary to fill page, 4 photos per div
@@ -212,7 +213,7 @@ class Photos extends React.Component {
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <Gallery images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} />
+        <Gallery images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
       </Grid>
     );
   }

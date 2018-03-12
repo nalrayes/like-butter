@@ -21,7 +21,7 @@ function Details ({
 	return (
 		<button
 			type="button"
-			className={css(classes.arrow, classes['arrow__direction__' + direction], size && classes['arrow__size__' + size], classes.footerCount, classes.footer)}
+			className={css(classes.arrow, size && classes['arrow__size__' + size], classes.footer)}
 			onClick={onClick}
 			onTouchEnd={onClick}
 			{...props}
@@ -51,7 +51,7 @@ const defaultStyles = {
 		borderRadius: 4,
 		cursor: 'pointer',
 		outline: 'none',
-		padding: 10, // increase
+		padding: 5, // increase
 
 		// disable user select
 		WebkitTouchCallout: 'none',
@@ -70,11 +70,11 @@ const defaultStyles = {
 	},
 	arrow__size__small: {
 		height: defaults.thumbnail.size,
-		marginTop: defaults.thumbnail.size / -2,
+		marginTop: defaults.thumbnail.size / -1.3,
 		width: 30,
 
 		'@media (min-width: 500px)': {
-			width: 40,
+			width: 45,
 		},
 	},
 
@@ -90,8 +90,9 @@ const defaultStyles = {
     color: defaults.footer.color,
     cursor: 'auto',
     display: 'flex',
+    position: 'absolute',
     justifyContent: 'space-between',
-    left: 0,
+    right: 0,
     lineHeight: 1.3,
     paddingBottom: defaults.footer.gutter.vertical,
     paddingLeft: defaults.footer.gutter.horizontal,

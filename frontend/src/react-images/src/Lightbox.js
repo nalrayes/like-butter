@@ -168,6 +168,7 @@ class Lightbox extends Component {
 	renderDetailButton() {
 		return (
 			<Details
+				direcion="left"
 				icon="details"
 				type="button"
 			/>
@@ -233,7 +234,6 @@ class Lightbox extends Component {
 					{imageLoaded && this.renderThumbnails()}
 					{imageLoaded && this.renderArrowPrev()}
 					{imageLoaded && this.renderArrowNext()}
-					{this.renderDetailButton()}
 					<ScrollLock />
 				</div>
 			</Container>
@@ -330,6 +330,7 @@ class Lightbox extends Component {
 		if (!images || !images.length) return null;
 
 		return (
+			<div>
 			<Footer
 				caption={images[currentImage].caption}
 				countCurrent={currentImage + 1}
@@ -337,6 +338,9 @@ class Lightbox extends Component {
 				countTotal={images.length}
 				showCount={showImageCount}
 			/>
+			<span />
+			{this.renderDetailButton()}
+			</div>
 		);
 	}
 	renderSpinner () {
@@ -414,7 +418,7 @@ Lightbox.defaultProps = {
 	preloadNextImage: true,
 	rightArrowTitle: 'Next (Right arrow key)',
 	showCloseButton: true,
-	showImageCount: true,
+	showImageCount: false,
 	spinner: DefaultSpinner,
 	spinnerColor: 'white',
 	spinnerSize: 100,
