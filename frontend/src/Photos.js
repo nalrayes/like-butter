@@ -129,6 +129,7 @@ class Photos extends React.Component {
       });
     this.handleImageFilter = this.handleImageFilter.bind(this);
     this.goToPhoto = this.goToPhoto.bind(this);
+    this.getPhotoDetails = this.getPhotoDetails.bind(this);
   }
 
   handleImageFilter(filterInfo) {
@@ -155,22 +156,37 @@ class Photos extends React.Component {
     window.location = href;
   }
 
+  getPhotoDetails() {
+    fetch(config.host + '/api/photo?name=' + this.state.photoList[this.state.index])
+      .then(data => data.json())
+      .then(photo => {
+        this.setState({'photoDetails': photo});
+      });
+  }
+
   render() {
     console.log("render called! state", this.state);
     const listOfImages = [];
     const listForGallery = [];
-    if (this.state.currentUrls) {
+
+    if (this.state.currentUrls && this.state.songs) {
       for (let i = 0; i < this.state.photoList.length; i++) {
         const url = config.host + '/' + this.state.currentUrls[i];
         console.log('creating reamin');
         // console.log("currentUrls", this.state.currentUrls);
-        // console.log("photoList", this.state.photoList);
+        console.log("photoList", this.state.photosToFilter);
         console.log(this.state.photoList[i], this.state.photoList);
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
         console.log(remain);
         const href = '/photo/?&photos=' + remain;
         const photoIndex = parseInt(this.state.photoList[i]) - 1;
         console.log(photoIndex);
+        console.log("SIDGNS");
+        // console.log(this.state.songs);
+        const song_id =  this.state.photosToFilter[photoIndex].song_id;
+        const song = this.state.songs.filter(song => song._id === song_id)[0];
+        console.log(song);
+        const spotifyURL = "https://open.spotify.com/embed?uri=" + song.uri;
         listForGallery.push(
           {
             src: url,
@@ -179,11 +195,18 @@ class Photos extends React.Component {
             thumbnailHeight: this.state.photosToFilter[photoIndex].height,
             photoView: href,
             caption: this.state.photosToFilter[photoIndex].title,
+            spotifyURL: spotifyURL,
           }
         );
         // create number of divs necessary to fill page, 4 photos per div
         listOfImages.push(React.createElement(Photo, {href: href, url: url, num: i}));
       }
+    } else if (!this.state.songs) {
+      fetch(config.host + '/api/songs/')
+        .then(data => data.json())
+        .then(songs => {
+          this.setState({songs: songs});
+        })
     }
 
     // let listOfDivs = [];
