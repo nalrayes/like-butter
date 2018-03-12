@@ -128,6 +128,7 @@ class Photos extends React.Component {
                         photoList: photosFromDb.map(element => element.name)});
       });
     this.handleImageFilter = this.handleImageFilter.bind(this);
+    this.goToPhoto = this.goToPhoto.bind(this);
   }
 
   handleImageFilter(filterInfo) {
@@ -146,6 +147,14 @@ class Photos extends React.Component {
     console.log(this.state);
   }
 
+  goToPhoto(evt) {
+    const photoNum = evt + 1;
+    const remain = createRemianingPhotos(photoNum + '', this.state.photoList);
+    console.log(remain);
+    const href = '/photo/?&photos=' + remain;
+    window.location = href;
+  }
+
   render() {
     console.log("render called! state", this.state);
     const listOfImages = [];
@@ -156,6 +165,10 @@ class Photos extends React.Component {
         console.log('creating reamin');
         // console.log("currentUrls", this.state.currentUrls);
         // console.log("photoList", this.state.photoList);
+        console.log(this.state.photoList[i], this.state.photoList);
+        const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
+        console.log(remain);
+        const href = '/photo/?&photos=' + remain;
         const photoIndex = parseInt(this.state.photoList[i]) - 1;
         console.log(photoIndex);
         listForGallery.push(
@@ -164,12 +177,9 @@ class Photos extends React.Component {
             thumbnail: url,
             thumbnailWidth: this.state.photosToFilter[photoIndex].width,
             thumbnailHeight: this.state.photosToFilter[photoIndex].height,
+            photoView: href,
           }
         );
-        console.log(this.state.photoList[i], this.state.photoList);
-        const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
-        console.log(remain);
-        const href = '/photo/?&photos=' + remain;
         // create number of divs necessary to fill page, 4 photos per div
         listOfImages.push(React.createElement(Photo, {href: href, url: url, num: i}));
       }
@@ -202,7 +212,7 @@ class Photos extends React.Component {
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <Gallery images={listForGallery} rowHeight={350} margin={2} />
+        <Gallery images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} />
       </Grid>
     );
   }

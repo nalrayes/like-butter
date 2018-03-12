@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Lightbox from 'react-images';
+import Lightbox from '../../react-images/src/Lightbox.js';
 import Image from './Image.js';
 
 class Gallery extends Component {
@@ -179,7 +179,7 @@ class Gallery extends Component {
             len += (item.scaletwidth + imgMargin);
         }
 
-        var delta = len - containerWidth;
+          var delta = len - containerWidth;
         if(delta > 0) {
             // added by me
             const newHeight = this.calculateNewHeight(len, containerWidth, imgMargin);
