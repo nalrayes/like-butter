@@ -208,7 +208,8 @@ class Lightbox extends Component {
 			showThumbnails,
 			width,
 			images,
-			currentImage
+			currentImage,
+			imageDetails
 		} = this.props;
 
 		const { imageLoaded } = this.state;
@@ -220,6 +221,8 @@ class Lightbox extends Component {
 			offsetThumbnails = this.theme.thumbnail.size + this.theme.container.gutter.vertical;
 		}
 
+
+		// DETAILS object instead of these divs at the bottom.
 		return (
 			<Container
 				key="open"
@@ -233,14 +236,23 @@ class Lightbox extends Component {
 						{this.renderSpinner()}
 						{imageLoaded && this.renderFooter()}
 					</div>
-					<div className={css(this.classes.details)}>
-					{images[currentImage].spotifyURL}
-					<iframe title='Song' src={images[currentImage].spotifyURL} width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
-					</div>
 					{imageLoaded && this.renderThumbnails()}
-					{imageLoaded && this.renderArrowPrev()}
-					{imageLoaded && this.renderArrowNext()}
 					<ScrollLock />
+				</div>
+				<div className={css(this.classes.margin)}>
+
+				</div>
+				<div className={css(this.classes.details)}>
+				{imageDetails[currentImage].camera} <br />
+				{imageDetails[currentImage].date} <br />
+				{imageDetails[currentImage].title} <br />
+				{imageDetails[currentImage].description} <br />
+				{imageDetails[currentImage].iso} <br />
+				{imageDetails[currentImage].aperture} <br />
+				{imageDetails[currentImage].location} <br />
+				{imageDetails[currentImage].focal_length} <br />
+				{imageDetails[currentImage].exposure_time} <br />
+				<iframe title='Song' src={imageDetails[currentImage].spotifyURL} className={css(this.classes.spotifyThing)} width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
 				</div>
 			</Container>
 		);
@@ -439,7 +451,8 @@ Lightbox.childContextTypes = {
 const defaultStyles = {
 	content: {
 		position: 'relative',
-		'float': 'left',
+		margin: '0 auto',
+		'float': 'right',
 	},
 	figure: {
 		margin: 0, // remove browser default
@@ -475,7 +488,17 @@ const defaultStyles = {
 		opacity: 1,
 	},
 	details: {
-		'float': 'right'
+		'padding': '10px',
+		'float': 'right',
+		'width': 'auto',
+		maxWidth: '50%',
+		'background-color': 'white',
+	},
+	margin: {
+		display: 'inline-block',
+		width: '10%'
+	},
+	spotifyThing: {
 	}
 };
 

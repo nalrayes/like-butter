@@ -168,6 +168,7 @@ class Photos extends React.Component {
     console.log("render called! state", this.state);
     const listOfImages = [];
     const listForGallery = [];
+    const listOfImageDetails = [];
 
     if (this.state.currentUrls && this.state.songs) {
       for (let i = 0; i < this.state.photoList.length; i++) {
@@ -177,15 +178,16 @@ class Photos extends React.Component {
         console.log("photoList", this.state.photosToFilter);
         console.log(this.state.photoList[i], this.state.photoList);
         const remain = createRemianingPhotos(this.state.photoList[i], this.state.photoList);
+        console.log("HELLOOOOOO");
         console.log(remain);
         const href = '/photo/?&photos=' + remain;
         const photoIndex = parseInt(this.state.photoList[i]) - 1;
         console.log(photoIndex);
-        console.log("SIDGNS");
+        console.log(this.state.photosToFilter[photoIndex]);
         // console.log(this.state.songs);
         const song_id =  this.state.photosToFilter[photoIndex].song_id;
         const song = this.state.songs.filter(song => song._id === song_id)[0];
-        console.log(song);
+        // console.log(song);
         const spotifyURL = "https://open.spotify.com/embed?uri=" + song.uri;
         listForGallery.push(
           {
@@ -198,6 +200,21 @@ class Photos extends React.Component {
             spotifyURL: spotifyURL,
           }
         );
+        listOfImageDetails.push(
+          {
+            camera: this.state.photosToFilter[photoIndex].camera,
+            date: this.state.photosToFilter[photoIndex].date,
+            title: this.state.photosToFilter[photoIndex].title,
+            description: this.state.photosToFilter[photoIndex].description,
+            spotifyURL: spotifyURL,
+            iso: this.state.photosToFilter[photoIndex].ISO,
+            aperture: this.state.photosToFilter[photoIndex].aperture,
+            location: this.state.photosToFilter[photoIndex].location_string,
+            focal_length: this.state.photosToFilter[photoIndex].focal_length,
+            exposure_time: this.state.photosToFilter[photoIndex].exposure_time,
+          }
+        );
+
         // create number of divs necessary to fill page, 4 photos per div
         listOfImages.push(React.createElement(Photo, {href: href, url: url, num: i}));
       }
@@ -236,7 +253,7 @@ class Photos extends React.Component {
             <SiteHeader onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <Gallery images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
+        <Gallery imageDetails={listOfImageDetails} images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
       </Grid>
     );
   }

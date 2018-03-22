@@ -283,6 +283,7 @@ class Gallery extends Component {
                 {images}
                 <Lightbox
             images={this.props.images}
+            imageDetails={this.props.imageDetails}
             backdropClosesModal={this.props.backdropClosesModal}
             currentImage={this.state.currentImage}
             customControls={this.props.customControls}
