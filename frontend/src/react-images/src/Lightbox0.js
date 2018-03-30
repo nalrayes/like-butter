@@ -17,6 +17,8 @@ import bindFunctions from './utils/bindFunctions';
 import canUseDom from './utils/canUseDom';
 import deepMerge from './utils/deepMerge';
 
+import ImageDetails from './ImageDetails.js'
+
 class Lightbox extends Component {
 	constructor (props) {
 		super(props);
@@ -240,20 +242,10 @@ class Lightbox extends Component {
 					<ScrollLock />
 				</div>
 				<div className={css(this.classes.margin)}>
+				</div>
 
-				</div>
-				<div className={css(this.classes.details)}>
-				{imageDetails[currentImage].camera} <br />
-				{imageDetails[currentImage].date} <br />
-				{imageDetails[currentImage].title} <br />
-				{imageDetails[currentImage].description} <br />
-				{imageDetails[currentImage].iso} <br />
-				{imageDetails[currentImage].aperture} <br />
-				{imageDetails[currentImage].location} <br />
-				{imageDetails[currentImage].focal_length} <br />
-				{imageDetails[currentImage].exposure_time} <br />
-				<iframe title='Song' src={imageDetails[currentImage].spotifyURL} className={css(this.classes.spotifyThing)} width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
-				</div>
+				<ImageDetails className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails}/>
+
 			</Container>
 		);
 	}

@@ -245,6 +245,7 @@ class Photos extends React.Component {
     return(
       <Grid fluid={true}>
         <div>
+          <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet" />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
         </div>
