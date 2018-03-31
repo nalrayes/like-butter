@@ -38,6 +38,7 @@ class ImageDetails extends Component {
     //   </div>
     // )
     return(
+      <div className={css(this.classes.gapContainer)}>
       <div className={css(this.classes.detailsContainer)}>
       <div className={css(this.classes.details)}>
       <p className={css(this.classes.titleParagraph)}>
@@ -58,8 +59,11 @@ class ImageDetails extends Component {
       {takenOn}
       </p>
       </div>
-      <div className={css(this.classes.spotifyContainer)}>
+      </div>
+      <div className={css(this.classes.detailsContainerWithGap)}>
+      <div className={css(this.classes.centerMe)}>
       <iframe title='Song' src={imageDetails[currentImage].spotifyURL} width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
+      </div>
       </div>
       </div>
     )
@@ -69,8 +73,7 @@ class ImageDetails extends Component {
 const defaultStyles = {
   detailsContainer: {
     'background-color': 'white',
-    'maxWidth': '25%',
-    'float': 'right',
+    'width': '100%',
   },
 	details: {
 		'padding': '20px',
@@ -82,10 +85,6 @@ const defaultStyles = {
   title: {
     'font-size': '2.3em',
     'font-weight': "bold",
-  },
-  spotifyContainer: {
-    'padding': '20px',
-    'background-color': 'black',
   },
   date: {
     'font-size': '1.5em',
@@ -106,6 +105,22 @@ const defaultStyles = {
     'font-style': 'italic',
     'fontSize': '1em',
   },
+  gapContainer: {
+    'max-width': '25%',
+    'background-color': 'transparent',
+    'float': 'right',
+  },
+  detailsContainerWithGap: {
+    'width': '100%',
+    'marginTop': '5%',
+    'display': 'flex',
+    'justify-content': 'center',
+    'align-items': 'center',
+  },
+  centerMe: {
+    'width': '100%',
+    'max-width': '375px',
+  }
 };
 
 
