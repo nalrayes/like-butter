@@ -76,7 +76,7 @@ const defaultStyles = {
     'width': '100%',
   },
 	details: {
-		'padding': '20px',
+		'padding': '25px',
 		'width': 'auto',
 		'background-color': 'white',
     'font-family': "'Nanum Gothic', sans-serif",
@@ -101,7 +101,7 @@ const defaultStyles = {
     'fontSize': '1.1em',
   },
   footerParagraph: {
-    'marginBottom': '-10px',
+    'marginBottom': '-5px',
     'font-style': 'italic',
     'fontSize': '1em',
   },
