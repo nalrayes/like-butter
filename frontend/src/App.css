@@ -109,10 +109,10 @@ html, body {
   /*flex-wrap: wrap;*/
   min-width: 100%;
   max-width: 100%;
-  /*background-color: black;*/
-  background-image: url('BGimp.png');
+  background-color: #f8f8ff;
+  background-image: url('BGSMALL2.png');
   background-repeat: repeat;
-  background-size: 25px 25px;
+  background-size: 175px 175px;
 
 }
 
