@@ -241,8 +241,7 @@ class Lightbox extends Component {
 					{imageLoaded && this.renderThumbnails()}
 					<ScrollLock />
 				</div>
-				<div className={css(this.classes.margin)}>
-				</div>
+				<div className={css(this.classes.margin)}></div>
 
 				<ImageDetails className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails}/>
 

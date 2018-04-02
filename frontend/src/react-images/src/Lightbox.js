@@ -17,13 +17,15 @@ import bindFunctions from './utils/bindFunctions';
 import canUseDom from './utils/canUseDom';
 import deepMerge from './utils/deepMerge';
 
+import ImageDetails from './ImageDetails.js';
+
 class Lightbox extends Component {
 	constructor (props) {
 		super(props);
 
 		this.theme = deepMerge(defaultTheme, props.theme);
 		this.classes = StyleSheet.create(deepMerge(defaultStyles, this.theme));
-		this.state = { imageLoaded: false };
+		this.state = { imageLoaded: false, detailView: false };
 
 		bindFunctions.call(this, [
 			'gotoNext',
@@ -31,6 +33,7 @@ class Lightbox extends Component {
 			'closeBackdrop',
 			'handleKeyboardInput',
 			'handleImageLoaded',
+			'triggerDetail'
 		]);
 	}
 	getChildContext () {
@@ -109,6 +112,14 @@ class Lightbox extends Component {
 
 		return img;
 	}
+	triggerDetail () {
+		const { detailView } = this.state;
+		if (detailView) {
+			this.setState({detailView: false})
+		} else {
+			this.setState({detailView: true})
+		}
+	}
 	gotoNext (event) {
 		const { currentImage, images } = this.props;
 		const { imageLoaded } = this.state;
@@ -171,6 +182,7 @@ class Lightbox extends Component {
 				direcion="left"
 				icon="details"
 				type="button"
+				onClick={this.triggerDetail}
 			/>
 		)
 	}
@@ -209,7 +221,7 @@ class Lightbox extends Component {
 			width,
 		} = this.props;
 
-		const { imageLoaded } = this.state;
+		const { imageLoaded, detailView } = this.state;
 
 		if (!isOpen) return <span key="closed" />;
 
@@ -232,12 +244,30 @@ class Lightbox extends Component {
 						{imageLoaded && this.renderFooter()}
 					</div>
 					{imageLoaded && this.renderThumbnails()}
-					{imageLoaded && this.renderArrowPrev()}
-					{imageLoaded && this.renderArrowNext()}
+					{!detailView && imageLoaded && this.renderArrowPrev()}
+					{!detailView && imageLoaded && this.renderArrowNext()}
 					<ScrollLock />
 				</div>
+				{detailView && this.renderMargin()}
+				{detailView && this.renderImageDetails()}
 			</Container>
 		);
+	}
+
+	renderImageDetails () {
+		const {
+			currentImage,
+			imageDetails
+		} = this.props;
+		return (
+			<ImageDetails className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails}/>
+		)
+	}
+
+	renderMargin () {
+		return(
+			<div className={css(this.classes.margin)}></div>
+		)
 	}
 	renderImages () {
 		const {
@@ -466,6 +496,17 @@ const defaultStyles = {
 	},
 	spinnerActive: {
 		opacity: 1,
+	},
+	details: {
+		'padding': '10px',
+		'float': 'right',
+		'width': 'auto',
+		maxWidth: '50%',
+		'background-color': 'white',
+	},
+	margin: {
+		display: 'inline-block',
+		width: '10%'
 	},
 };
 
