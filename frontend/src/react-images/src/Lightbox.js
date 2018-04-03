@@ -18,6 +18,7 @@ import canUseDom from './utils/canUseDom';
 import deepMerge from './utils/deepMerge';
 
 import ImageDetails from './ImageDetails.js';
+import ReactDOM from 'react-dom';
 
 class Lightbox extends Component {
 	constructor (props) {
@@ -35,6 +36,8 @@ class Lightbox extends Component {
 			'handleImageLoaded',
 			'triggerDetail'
 		]);
+
+		this.pictureRef = React.createRef();
 	}
 	getChildContext () {
 		return {
@@ -46,8 +49,55 @@ class Lightbox extends Component {
 			window.addEventListener('keydown', this.handleKeyboardInput);
 		}
 	}
+
+	componentDidUpdate(previousProps) {
+		if (this.state.imageLoaded && this.state.detailView && this.pictureRef.current) {
+			let currentImageNode = this.pictureRef.current;
+
+			const newBox = currentImageNode.getBoundingClientRect();
+			const oldBox = this.state.oldBox;
+			console.log("component did update");
+			console.log("OLD");
+			console.log(oldBox);
+			console.log("NEW");
+			console.log(newBox);
+
+			const deltaX = oldBox.left - newBox.left;
+			const deltaY = oldBox.top - newBox.top;
+
+			requestAnimationFrame( () => {
+				currentImageNode.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+				currentImageNode.transition = 'transform 0s';
+
+				requestAnimationFrame( () => {
+					currentImageNode.transform = '';
+					currentImageNode.transition = 'transform 500ms';
+				});
+			});
+		}
+	}
 	componentWillReceiveProps (nextProps) {
 		if (!canUseDom) return;
+
+		console.log('hello there');
+		console.log(nextProps);
+		// NEW CODE FOR ANIMATION
+		if (this.state.imageLoaded && this.pictureRef.current) {
+			// get the ref for the image, this gives us the dom node
+			const currentImageNode = this.pictureRef.current;
+
+			// calculate the bounding box
+			const boundingBox = currentImageNode.getBoundingClientRect();
+
+			// save it in state
+			this.setState({
+				oldBox: boundingBox,
+			});
+			console.log("WILL RECEIVE OLD");
+			console.log(boundingBox);
+		}
+		//END OF NEW CODE FOR ANIMATION
+
 
 		// preload images
 		if (nextProps.preloadNextImage) {
@@ -297,7 +347,7 @@ class Lightbox extends Component {
 			+ (this.theme.container.gutter.vertical)}px`;
 
 		return (
-			<figure className={css(this.classes.figure)}>
+			<figure className={css(this.classes.figure)} ref={this.pictureRef}>
 				{/*
 					Re-implement when react warning "unknown props"
 					https://fb.me/react-unknown-prop is resolved
