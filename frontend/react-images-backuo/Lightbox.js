@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite';
 import ScrollLock from 'react-scrolllock';
-// import { BounceLoader } from 'react-spinners';
+import { BounceLoader } from 'react-spinners';
 
 import defaultTheme from './theme';
 import Arrow from './components/Arrow';
@@ -12,25 +12,12 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import PaginatedThumbnails from './components/PaginatedThumbnails';
 import Portal from './components/Portal';
-import DefaultSpinner from './components/Spinner';
 
 import bindFunctions from './utils/bindFunctions';
 import canUseDom from './utils/canUseDom';
 import deepMerge from './utils/deepMerge';
 
 import ImageDetails from './ImageDetails.js';
-import FlipMove from 'react-flip-move';
-
-// consumers sometimes provide incorrect type or casing
-function normalizeSourceSet (data) {
-	const sourceSet = data.srcSet || data.srcset;
-
-	if (Array.isArray(sourceSet)) {
-		return sourceSet.join();
-	}
-
-	return sourceSet;
-}
 
 class Lightbox extends Component {
 	constructor (props) {
@@ -57,42 +44,37 @@ class Lightbox extends Component {
 		};
 	}
 	componentDidMount () {
-		if (this.props.isOpen) {
-			if (this.props.enableKeyboardInput) {
-				window.addEventListener('keydown', this.handleKeyboardInput);
-			}
-			if (typeof this.props.currentImage === 'number') {
-				this.preloadImage(this.props.currentImage, this.handleImageLoaded);
-			}
+		if (this.props.isOpen && this.props.enableKeyboardInput) {
+			window.addEventListener('keydown', this.handleKeyboardInput);
 		}
 	}
-	// componentDidUpdate(previousProps) {
-	// 	if (this.state.imageLoaded && this.state.detailView && this.pictureRef.current) {
-	// 		let currentImageNode = this.pictureRef.current;
-	//
-	// 		const newBox = currentImageNode.getBoundingClientRect();
-	// 		const oldBox = this.state.oldBox;
-	// 		console.log("component did update");
-	// 		console.log("OLD");
-	// 		console.log(oldBox);
-	// 		console.log("NEW");
-	// 		console.log(newBox);
-	//
-	// 		const deltaX = oldBox.left - newBox.left;
-	// 		const deltaY = oldBox.top - newBox.top;
-	//
-	// 		requestAnimationFrame( () => {
-	// 			currentImageNode.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-	// 			currentImageNode.transition = 'transform 0s';
-	//
-	// 			requestAnimationFrame( () => {
-	// 				currentImageNode.transform = '';
-	// 				currentImageNode.transition = 'transform 500ms';
-	// 			});
-	// 		});
-	// 	}
-	// }
 
+	componentDidUpdate(previousProps) {
+		if (this.state.imageLoaded && this.state.detailView && this.pictureRef.current) {
+			let currentImageNode = this.pictureRef.current;
+
+			const newBox = currentImageNode.getBoundingClientRect();
+			const oldBox = this.state.oldBox;
+			console.log("component did update");
+			console.log("OLD");
+			console.log(oldBox);
+			console.log("NEW");
+			console.log(newBox);
+
+			const deltaX = oldBox.left - newBox.left;
+			const deltaY = oldBox.top - newBox.top;
+
+			requestAnimationFrame( () => {
+				currentImageNode.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+				currentImageNode.transition = 'transform 0s';
+
+				requestAnimationFrame( () => {
+					currentImageNode.transform = '';
+					currentImageNode.transition = 'transform 500ms';
+				});
+			});
+		}
+	}
 	componentWillReceiveProps (nextProps) {
 		if (!canUseDom) return;
 
@@ -164,23 +146,21 @@ class Lightbox extends Component {
 	// ==============================
 
 	preloadImage (idx, onload) {
-		const data = this.props.images[idx];
-
-		if (!data) return;
+		const image = this.props.images[idx];
+		if (!image) return;
 
 		const img = new Image();
-		const sourceSet = normalizeSourceSet(data);
 
 		// TODO: add error handling for missing images
 		img.onerror = onload;
 		img.onload = onload;
-		img.src = data.src;
+		img.src = image.src;
+		img.srcSet = image.srcSet || image.srcset;
 
-		if (sourceSet) img.srcset = sourceSet;
+		if (img.srcSet) img.setAttribute('srcset', img.srcSet);
 
 		return img;
 	}
-
 	triggerDetail () {
 		const { detailView } = this.state;
 		if (detailView) {
@@ -189,7 +169,6 @@ class Lightbox extends Component {
 			this.setState({detailView: true})
 		}
 	}
-
 	gotoNext (event) {
 		const { currentImage, images } = this.props;
 		const { imageLoaded } = this.state;
@@ -306,20 +285,18 @@ class Lightbox extends Component {
 				onClick={backdropClosesModal && this.closeBackdrop}
 				onTouchEnd={backdropClosesModal && this.closeBackdrop}
 			>
-				<FlipMove duration={350} typeName={null}>
-				<div key='a'>
-						<div detailed={detailView} key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-							{imageLoaded && this.renderHeader()}
-							{this.renderImages()}
-							{this.renderSpinner()}
-							{imageLoaded && this.renderFooter()}
-						</div>
+				<div>
+					<div className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
+						{imageLoaded && this.renderHeader()}
+						{this.renderImages()}
+						{this.renderSpinner()}
+						{imageLoaded && this.renderFooter()}
+					</div>
 					{imageLoaded && this.renderThumbnails()}
 					{!detailView && imageLoaded && this.renderArrowPrev()}
 					{!detailView && imageLoaded && this.renderArrowNext()}
-					{this.props.preventScroll && <ScrollLock />}
+					<ScrollLock />
 				</div>
-				</FlipMove>
 				{detailView && this.renderMargin()}
 				{detailView && this.renderImageDetails()}
 			</Container>
@@ -354,15 +331,22 @@ class Lightbox extends Component {
 		if (!images || !images.length) return null;
 
 		const image = images[currentImage];
-		const sourceSet = normalizeSourceSet(image);
-		const sizes = sourceSet ? '100vw' : null;
+		image.srcSet = image.srcSet || image.srcset;
+
+		let srcSet;
+		let sizes;
+
+		if (image.srcSet) {
+			srcSet = image.srcSet.join();
+			sizes = '100vw';
+		}
 
 		const thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
 		const heightOffset = `${this.theme.header.height + this.theme.footer.height + thumbnailsSize
 			+ (this.theme.container.gutter.vertical)}px`;
 
 		return (
-			<figure className={css(this.classes.figure)}>
+			<figure className={css(this.classes.figure)} ref={this.pictureRef}>
 				{/*
 					Re-implement when react warning "unknown props"
 					https://fb.me/react-unknown-prop is resolved
@@ -374,7 +358,7 @@ class Lightbox extends Component {
 					sizes={sizes}
 					alt={image.alt}
 					src={image.src}
-					srcSet={sourceSet}
+					srcSet={srcSet}
 					style={{
 						cursor: onClickImage ? 'pointer' : 'auto',
 						maxHeight: `calc(100vh - ${heightOffset})`,
@@ -466,6 +450,10 @@ class Lightbox extends Component {
 	}
 }
 
+const DefaultSpinner = (props) => (
+	<BounceLoader {...props} />
+);
+
 Lightbox.propTypes = {
 	backdropClosesModal: PropTypes.bool,
 	closeButtonTitle: PropTypes.string,
@@ -488,7 +476,6 @@ Lightbox.propTypes = {
 	onClickPrev: PropTypes.func,
 	onClose: PropTypes.func.isRequired,
 	preloadNextImage: PropTypes.bool,
-	preventScroll: PropTypes.bool,
 	rightArrowTitle: PropTypes.string,
 	showCloseButton: PropTypes.bool,
 	showImageCount: PropTypes.bool,
@@ -508,10 +495,9 @@ Lightbox.defaultProps = {
 	leftArrowTitle: 'Previous (Left arrow key)',
 	onClickShowNextImage: true,
 	preloadNextImage: true,
-	preventScroll: true,
 	rightArrowTitle: 'Next (Right arrow key)',
 	showCloseButton: true,
-	showImageCount: true,
+	showImageCount: false,
 	spinner: DefaultSpinner,
 	spinnerColor: 'white',
 	spinnerSize: 100,
@@ -522,7 +508,6 @@ Lightbox.defaultProps = {
 Lightbox.childContextTypes = {
 	theme: PropTypes.object.isRequired,
 };
-
 
 const defaultStyles = {
 	content: {

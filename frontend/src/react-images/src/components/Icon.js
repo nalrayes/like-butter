@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import arrowLeft from '../icons/arrowLeft';
 import arrowRight from '../icons/arrowRight';
+import details from '../icons/details';
 import close from '../icons/close';
-import details from '../icons/details'
 
 const icons = { arrowLeft, arrowRight, close, details };
 

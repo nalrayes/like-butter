@@ -1,7 +1,8 @@
 import './App.css'
 import {Form, ButtonGroup, Label, Image, Button, FormGroup, FormControl, ControlLabel, Grid, Row, Col} from 'react-bootstrap';
 import Gallery from './react-grid-gallery/src/Gallery.js';
-const React = require('react');
+// import Gallery from 'react-grid-gallery';
+import React from 'react';
 const config = require('./config.json');
 
 const imgW = 250;

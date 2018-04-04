@@ -1,25 +1,40 @@
 {
-  "_from": "react-images@^0.5.6",
-  "_id": "react-images@0.5.14",
-  "_inBundle": false,
-  "_integrity": "sha1-AkEKP6Y6Tt394Zomu449x1jS1Eo=",
+  "_args": [
+    [
+      "react-images@^0.5.6",
+      "/home/nayef/Dropbox/like.butter/frontend/node_modules/react-grid-gallery"
+    ]
+  ],
+  "_from": "react-images@>=0.5.6 <0.6.0",
+  "_id": "react-images@0.5.17",
+  "_inCache": true,
+  "_installable": true,
   "_location": "/react-images",
+  "_nodeVersion": "7.4.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-images_0.5.17_1518000700447_0.37213639513249697"
+  },
+  "_npmUser": {
+    "email": "joss@keystonejs.com",
+    "name": "jossmac"
+  },
+  "_npmVersion": "4.0.5",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "react-images@^0.5.6",
     "name": "react-images",
-    "escapedName": "react-images",
+    "raw": "react-images@^0.5.6",
     "rawSpec": "^0.5.6",
-    "saveSpec": null,
-    "fetchSpec": "^0.5.6"
+    "scope": null,
+    "spec": ">=0.5.6 <0.6.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/react-grid-gallery"
   ],
-  "_resolved": "https://registry.npmjs.org/react-images/-/react-images-0.5.14.tgz",
-  "_shasum": "02410a3fa63a4eddfde19a26bb8e3dc758d2d44a",
+  "_resolved": "https://registry.npmjs.org/react-images/-/react-images-0.5.17.tgz",
+  "_shasum": "6f76fd03b370176bead7d22cec06afe82fe1cec0",
+  "_shrinkwrap": null,
   "_spec": "react-images@^0.5.6",
   "_where": "/home/nayef/Dropbox/like.butter/frontend/node_modules/react-grid-gallery",
   "author": {
@@ -28,15 +43,12 @@
   "bugs": {
     "url": "https://github.com/jossmac/react-images/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "aphrodite": "^0.5.0",
     "prop-types": "^15.6.0",
-    "react-scrolllock": "^1.0.5",
-    "react-spinners": "^0.2.5",
+    "react-scrolllock": "^2.0.1",
     "react-transition-group": "^1.1.3"
   },
-  "deprecated": false,
   "description": "A simple, responsive lightbox component for displaying an array of images with React.js",
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -71,30 +83,54 @@
     "webpack": "^3.7.1",
     "webpack-dev-server": "^2.9.2"
   },
+  "directories": {},
+  "dist": {
+    "fileCount": 69,
+    "shasum": "6f76fd03b370176bead7d22cec06afe82fe1cec0",
+    "tarball": "https://registry.npmjs.org/react-images/-/react-images-0.5.17.tgz",
+    "unpackedSize": 643659
+  },
+  "gitHead": "60778d1b38d46cfa5e445518ecd398a85a01ebb6",
   "homepage": "http://jossmac.github.io/react-images",
   "jsnext:main": "dist/react-images.es.js",
   "keywords": [
+    "carousel",
+    "gallery",
+    "lightbox",
     "react",
-    "react-component",
-    "react-images",
-    "react-lightbox",
-    "react-carousel",
-    "react-gallery",
-    "react images",
-    "react lightbox",
     "react carousel",
     "react gallery",
-    "lightbox",
-    "carousel",
-    "gallery"
+    "react images",
+    "react lightbox",
+    "react-carousel",
+    "react-component",
+    "react-gallery",
+    "react-images",
+    "react-lightbox"
   ],
   "license": "MIT",
   "main": "lib/Lightbox.js",
+  "maintainers": [
+    {
+      "name": "jedwatson",
+      "email": "jed.watson@me.com"
+    },
+    {
+      "name": "jossmac",
+      "email": "joss@keystonejs.com"
+    },
+    {
+      "name": "neptunian",
+      "email": "glacialgarden@gmail.com"
+    }
+  ],
   "name": "react-images",
+  "optionalDependencies": {},
   "peerDependencies": {
     "react": "^15.0 || ^16.0",
     "react-dom": "^15.0 || ^16.0"
   },
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jossmac/react-images.git"
@@ -105,5 +141,5 @@
     "publish:examples": "NODE_ENV=production nps publish",
     "start": "webpack-dev-server --progress"
   },
-  "version": "0.5.14"
+  "version": "0.5.17"
 }

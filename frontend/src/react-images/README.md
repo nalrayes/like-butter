@@ -12,6 +12,10 @@ A simple, responsive lightbox component for displaying an array of images.
 ```bash
 npm install --save react-images
 ```
+or
+```bash
+yarn add react-images
+```
 
 ```jsx
 import React from 'react';
@@ -41,8 +45,8 @@ Live demo: [jossmac.github.io/react-images](http://jossmac.github.io/react-image
 To build the examples locally, run:
 
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 Then open [`localhost:8000`](http://localhost:8000) in a browser.
@@ -89,7 +93,7 @@ closeButtonTitle | string | ' Close (Esc) ' | Customize close esc title
 enableKeyboardInput | bool  | true  | Supports keyboard input - <code>esc</code>, <code>arrow left</code>, and <code>arrow right</code>
 currentImage  | number  | 0 | The index of the image to display initially
 customControls | array | undefined | An array of elements to display as custom controls on the top of lightbox
-images  | array | undefined | Required. Array of image objects See image options table below 
+images  | array | undefined | Required. Array of image objects See image options table below
 imageCountSeparator  | String  | ' of ' | Customize separator in the image count
 isOpen  | bool  | false | Whether or not the lightbox is displayed
 leftArrowTitle | string | ' Previous (Left arrow key) ' | Customize of left arrow title
@@ -103,14 +107,16 @@ rightArrowTitle | string | ' Next (Right arrow key) ' | Customize right arrow ti
 showCloseButton | bool  | true | Optionally display a close "X" button in top right corner
 showImageCount | bool  | true | Optionally display image index, e.g., "3 of 20"
 width | number  | 1024 | Maximum width of the carousel; defaults to 1024px
-spinner | func | BounceLoader | [react-spinners](https://github.com/davidhu2000/react-spinners) spinner component or custom spinner component
+spinner | func | DefaultSpinner | Spinner component class
 spinnerColor | string | 'white' | Color of spinner
 spinnerSize | number | 100 | Size of spinner
+preventScroll | bool | true | Determines whether scrolling is prevented via [react-scrolllock](https://github.com/jossmac/react-scrolllock)
 
 ## Images object
 
 Property	|	Type		|	Default		|	Description
 :-----------------------|:--------------|:--------------|:--------------------------------
-src  | string | undefined | Required 
-srcSet  | array of strings | undefined | Optional 
-caption  | string | undefined | Optional 
+src  | string | undefined | Required
+srcSet  | array of strings | undefined | Optional
+caption  | string | undefined | Optional
+alt  | string | undefined | Optional
