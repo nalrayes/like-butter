@@ -1,10 +1,34 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Component} from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 import Icon from './Icon';
+
+// class Arrow extends Component {
+// 	constructor(props) {
+// 		super(props)
+// 	}
+//
+// 	render() {
+//
+// 		const {direction, icon, onClick, size, theme} = this.props;
+// 		const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+//
+// 		return (
+// 			<button
+// 				type="button"
+// 				className={css(classes.arrow, classes['arrow__direction__' + direction], size && classes['arrow__size__' + size])}
+// 				onClick={onClick}
+// 				onTouchEnd={onClick}
+// 				{...this.props}
+// 			>
+// 				<Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />
+// 			</button>
+// 		);
+// 	}
+// }
 
 function Arrow ({
 	direction,
@@ -29,6 +53,9 @@ function Arrow ({
 			<Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />
 		</button>
 	);
+
+
+
 }
 
 Arrow.propTypes = {

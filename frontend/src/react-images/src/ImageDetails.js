@@ -62,7 +62,7 @@ class ImageDetails extends Component {
         </div>
         <div className={css(this.classes.detailsContainerWithGap)}>
           <div className={css(this.classes.centerMe)}>
-            <iframe title='Song' src={imageDetails[currentImage].spotifyURL} width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
+            <iframe title='Song' src={imageDetails[currentImage].spotifyURL} width="100%" height="80" allowtransparency="true"></iframe>
           </div>
         </div>
       </div>

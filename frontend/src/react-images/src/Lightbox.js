@@ -99,20 +99,20 @@ class Lightbox extends Component {
 		console.log('hello there');
 		console.log(nextProps);
 		// NEW CODE FOR ANIMATION
-		if (this.state.imageLoaded && this.pictureRef.current) {
-			// get the ref for the image, this gives us the dom node
-			const currentImageNode = this.pictureRef.current;
-
-			// calculate the bounding box
-			const boundingBox = currentImageNode.getBoundingClientRect();
-
-			// save it in state
-			this.setState({
-				oldBox: boundingBox,
-			});
-			console.log("WILL RECEIVE OLD");
-			console.log(boundingBox);
-		}
+		// if (this.state.imageLoaded && this.pictureRef.current) {
+		// 	// get the ref for the image, this gives us the dom node
+		// 	const currentImageNode = this.pictureRef.current;
+		//
+		// 	// calculate the bounding box
+		// 	const boundingBox = currentImageNode.getBoundingClientRect();
+		//
+		// 	// save it in state
+		// 	this.setState({
+		// 		oldBox: boundingBox,
+		// 	});
+		// 	console.log("WILL RECEIVE OLD");
+		// 	console.log(boundingBox);
+		// }
 		//END OF NEW CODE FOR ANIMATION
 
 
@@ -267,6 +267,7 @@ class Lightbox extends Component {
 				onClick={this.gotoPrev}
 				title={this.props.leftArrowTitle}
 				type="button"
+				key='arrowPrev'
 			/>
 		);
 	}
@@ -280,6 +281,7 @@ class Lightbox extends Component {
 				onClick={this.gotoNext}
 				title={this.props.rightArrowTitle}
 				type="button"
+				key='arrowNext'
 			/>
 		);
 	}
@@ -306,22 +308,19 @@ class Lightbox extends Component {
 				onClick={backdropClosesModal && this.closeBackdrop}
 				onTouchEnd={backdropClosesModal && this.closeBackdrop}
 			>
-				<FlipMove duration={350} typeName={null}>
-				<div key='a'>
-						<div detailed={detailView} key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-							{imageLoaded && this.renderHeader()}
-							{this.renderImages()}
-							{this.renderSpinner()}
-							{imageLoaded && this.renderFooter()}
-						</div>
-					{imageLoaded && this.renderThumbnails()}
+					<FlipMove>
+					<div key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
+						{imageLoaded && this.renderHeader()}
+						{this.renderImages()}
+						{this.renderSpinner()}
+						{imageLoaded && this.renderFooter()}
+					</div>
 					{!detailView && imageLoaded && this.renderArrowPrev()}
 					{!detailView && imageLoaded && this.renderArrowNext()}
-					{this.props.preventScroll && <ScrollLock />}
-				</div>
-				</FlipMove>
+					{this.props.preventScroll && <ScrollLock key='scrollLock'/>}
 				{detailView && this.renderMargin()}
 				{detailView && this.renderImageDetails()}
+				</FlipMove>
 			</Container>
 		);
 	}
@@ -332,13 +331,13 @@ class Lightbox extends Component {
 			imageDetails
 		} = this.props;
 		return (
-			<ImageDetails className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails}/>
+			<ImageDetails key='currentImage' className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails}/>
 		)
 	}
 
 	renderMargin () {
 		return(
-			<div className={css(this.classes.margin)}></div>
+			<div className={css(this.classes.margin)} key='margin'></div>
 		)
 	}
 	renderImages () {
