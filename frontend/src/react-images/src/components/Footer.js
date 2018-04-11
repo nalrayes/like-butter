@@ -1,42 +1,76 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 
-function Footer ({
-	caption,
-	countCurrent,
-	countSeparator,
-	countTotal,
-	showCount,
-	...props,
-}, {
-	theme,
-}) {
-	if (!caption && !showCount) return null;
+class Footer extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+	render() {
+		const { caption, countCurrent, countSeparator, countTotal, showCount } = this.props;
+		const { theme } = this.context;
 
-	const imageCount = showCount ? (
-		<div className={css(classes.footerCount)}>
-			{countCurrent}
-			{countSeparator}
-			{countTotal}
-		</div>)
-		: <span />;
+		if (!caption && !showCount) return null;
 
-	return (
-		<div className={css(classes.footer)} {...props}>
-			{caption ? (
-				<figcaption className={css(classes.footerCaption)}>
-					{caption}
-				</figcaption>
-			) : <span />}
-			{imageCount}
-		</div>
-	);
+		const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+
+		const imageCount = showCount ? (
+			<div className={css(classes.footerCount)}>
+				{countCurrent}
+				{countSeparator}
+				{countTotal}
+			</div>)
+			: <span />;
+
+			return (
+				<div className={css(classes.footer)} {...this.props}>
+					{caption ? (
+						<figcaption className={css(classes.footerCaption)}>
+							{caption}
+						</figcaption>
+					) : <span />}
+					{imageCount}
+				</div>
+			);
+
+	}
 }
+// function Footer ({
+// 	caption,
+// 	countCurrent,
+// 	countSeparator,
+// 	countTotal,
+// 	showCount,
+// 	...props,
+// }, {
+// 	theme,
+// }) {
+// 	if (!caption && !showCount) return null;
+//
+// 	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+//
+// 	const imageCount = showCount ? (
+// 		<div className={css(classes.footerCount)}>
+// 			{countCurrent}
+// 			{countSeparator}
+// 			{countTotal}
+// 		</div>)
+// 		: <span />;
+//
+// 	return (
+// 		<div className={css(classes.footer)} {...props}>
+// 			{caption ? (
+// 				<figcaption className={css(classes.footerCaption)}>
+// 					{caption}
+// 				</figcaption>
+// 			) : <span />}
+// 			{imageCount}
+// 		</div>
+// 	);
+// }
 
 Footer.propTypes = {
 	caption: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

@@ -249,11 +249,24 @@ class Lightbox extends Component {
 	renderDetailButton() {
 		return (
 			<Details
-				direcion="left"
+				direction="left"
 				icon="details"
 				type="button"
 				onClick={this.triggerDetail}
 			/>
+		)
+	}
+
+	renderExitDetailButton() {
+		return (
+			<div className={css(this.classes.header)}>
+			<Details
+				direction="left"
+				icon="exitDetails"
+				type="button"
+				onClick={this.triggerDetail}
+			/>
+			</div>
 		)
 	}
 
@@ -308,19 +321,23 @@ class Lightbox extends Component {
 				onClick={backdropClosesModal && this.closeBackdrop}
 				onTouchEnd={backdropClosesModal && this.closeBackdrop}
 			>
-					<FlipMove>
-					<div key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-						{imageLoaded && this.renderHeader()}
-						{this.renderImages()}
-						{this.renderSpinner()}
-						{imageLoaded && this.renderFooter()}
-					</div>
-					{!detailView && imageLoaded && this.renderArrowPrev()}
-					{!detailView && imageLoaded && this.renderArrowNext()}
-					{this.props.preventScroll && <ScrollLock key='scrollLock'/>}
-				{detailView && this.renderMargin()}
-				{detailView && this.renderImageDetails()}
-				</FlipMove>
+
+						<div key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
+							<FlipMove>
+							{imageLoaded && this.renderHeader()}
+							{this.renderImages()}
+							{this.renderSpinner()}
+							{!detailView && imageLoaded && this.renderFooter()}
+							</FlipMove>
+						</div>
+						<FlipMove typeName={null} enterAnimation='fade'>
+						{false && detailView && this.renderMargin()}
+						{detailView && this.renderExitDetailButton()}
+						{detailView && this.renderImageDetails()}
+						</FlipMove>
+				{!detailView && imageLoaded && this.renderArrowPrev()}
+				{!detailView && imageLoaded && this.renderArrowNext()}
+				{this.props.preventScroll && <ScrollLock key='scrollLock'/>}
 			</Container>
 		);
 	}
@@ -423,6 +440,9 @@ class Lightbox extends Component {
 
 		if (!images || !images.length) return null;
 
+		if (this.state.detailView) {
+			return;
+		}
 		return (
 			<div>
 			<Footer
@@ -526,6 +546,7 @@ Lightbox.childContextTypes = {
 const defaultStyles = {
 	content: {
 		position: 'relative',
+		margin: '0px',
 	},
 	figure: {
 		margin: 0, // remove browser default
@@ -540,9 +561,7 @@ const defaultStyles = {
 		WebkitTouchCallout: 'none',
 		userSelect: 'none',
 
-		// opacity animation on image load
-		opacity: 0,
-		transition: 'opacity 0.3s',
+
 	},
 	imageLoaded: {
 		opacity: 1,
@@ -570,6 +589,11 @@ const defaultStyles = {
 	margin: {
 		display: 'inline-block',
 		width: '10%'
+	},
+	header: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		height: 40,
 	},
 };
 

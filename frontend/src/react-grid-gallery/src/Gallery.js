@@ -375,7 +375,7 @@ Gallery.defaultProps = {
     imageCountSeparator: ' of ',
     isOpen: false,
     showCloseButton: true,
-    showImageCount: true,
+    showImageCount: false,
     lightboxWidth: 1024,
     showLightboxThumbnails: false
 };

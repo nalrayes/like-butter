@@ -1,25 +1,49 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 import Thumbnail from './Thumbnail';
 
 import theme from '../theme';
 
-function Thumbnails ({ currentImage, images, onClickThumbnail }) {
-	return (
-		<div className={css(classes.thumbnails)}>
-			{images.map((img, idx) => (
-				<Thumbnail
-					{...img}
-					active={idx === currentImage}
-					index={idx}
-					key={idx}
-					onClick={onClickThumbnail}
-				/>
-			))}
-		</div>
-	);
+class Thumbnails extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		const { currentImage, images, onClickThumbnail } = this.props;
+
+		return (
+			<div className={css(classes.thumbnails)}>
+				{images.map((img, idx) => (
+					<Thumbnail
+						{...img}
+						active={idx === currentImage}
+						index={idx}
+						key={idx}
+						onClick={onClickThumbnail}
+					/>
+				))}
+			</div>
+		);
+	}
 }
+
+// function Thumbnails ({ currentImage, images, onClickThumbnail }) {
+// 	return (
+// 		<div className={css(classes.thumbnails)}>
+// 			{images.map((img, idx) => (
+// 				<Thumbnail
+// 					{...img}
+// 					active={idx === currentImage}
+// 					index={idx}
+// 					key={idx}
+// 					onClick={onClickThumbnail}
+// 				/>
+// 			))}
+// 		</div>
+// 	);
+// }
 
 Thumbnails.propTypes = {
 	currentImage: PropTypes.number,

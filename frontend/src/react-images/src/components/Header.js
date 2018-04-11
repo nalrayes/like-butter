@@ -1,37 +1,63 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 import Icon from './Icon';
 
-function Header ({
-	customControls,
-	onClose,
-	showCloseButton,
-	closeButtonTitle,
-	...props,
-}, {
-	theme,
-}) {
-	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+class Header extends Component{
+	constructor(props) {
+		super(props);
+	}
 
-	return (
-		<div className={css(classes.header)} {...props}>
-			{customControls ? customControls : <span />}
-			{!!showCloseButton && (
-				<button
-					title={closeButtonTitle}
-					className={css(classes.close)}
-					onClick={onClose}
-				>
-					<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
-				</button>
-			)}
-		</div>
-	);
+	render() {
+		const { customControls, onClose, showCloseButton, closeButtonTitle } = this.props;
+		const { theme } = this.context;
+		const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+
+		return (
+			<div className={css(classes.header)} {...this.props}>
+				{customControls ? customControls : <span />}
+				{!!showCloseButton && (
+					<button
+						title={closeButtonTitle}
+						className={css(classes.close)}
+						onClick={onClose}
+					>
+						<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
+					</button>
+				)}
+			</div>
+		);
+	}
 }
+// function Header ({
+// 	customControls,
+// 	onClose,
+// 	showCloseButton,
+// 	closeButtonTitle,
+// 	...props,
+// }, {
+// 	theme,
+// }) {
+// 	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+//
+// 	return (
+// 		<div className={css(classes.header)} {...props}>
+// 			{customControls ? customControls : <span />}
+// 			{!!showCloseButton && (
+// 				<button
+// 					title={closeButtonTitle}
+// 					className={css(classes.close)}
+// 					onClick={onClose}
+// 				>
+// 					<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
+// 				</button>
+// 			)}
+// 		</div>
+// 	);
+// }
 
 Header.propTypes = {
 	customControls: PropTypes.array,
