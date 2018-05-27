@@ -325,8 +325,14 @@ class Lightbox extends Component {
 						<div key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
 							<FlipMove>
 							{imageLoaded && this.renderHeader()}
+							</FlipMove>
+							<FlipMove>
 							{this.renderImages()}
+							</FlipMove>
+							<FlipMove>
 							{this.renderSpinner()}
+							</FlipMove>
+							<FlipMove>
 							{!detailView && imageLoaded && this.renderFooter()}
 							</FlipMove>
 						</div>
