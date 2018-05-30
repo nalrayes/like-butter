@@ -322,28 +322,22 @@ class Lightbox extends Component {
 				onTouchEnd={backdropClosesModal && this.closeBackdrop}
 			>
 
+					<FlipMove id='this' className={css(this.classes.container2)} typeName='div' appearAnimation='fade' enterAnimation='fade' leaveAnimation='fade'>
 						<div key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-							<FlipMove>
 							{imageLoaded && this.renderHeader()}
-							</FlipMove>
-							<FlipMove>
 							{this.renderImages()}
-							</FlipMove>
-							<FlipMove>
 							{this.renderSpinner()}
-							</FlipMove>
 							<FlipMove>
 							{!detailView && imageLoaded && this.renderFooter()}
 							</FlipMove>
 						</div>
-						<FlipMove typeName={null} enterAnimation='fade'>
 						{false && detailView && this.renderMargin()}
 						{detailView && this.renderExitDetailButton()}
 						{detailView && this.renderImageDetails()}
-						</FlipMove>
 				{!detailView && imageLoaded && this.renderArrowPrev()}
 				{!detailView && imageLoaded && this.renderArrowNext()}
 				{this.props.preventScroll && <ScrollLock key='scrollLock'/>}
+				</FlipMove>
 			</Container>
 		);
 	}
@@ -384,7 +378,7 @@ class Lightbox extends Component {
 			+ (this.theme.container.gutter.vertical)}px`;
 
 		return (
-			<figure className={css(this.classes.figure)}>
+			<figure className={css(this.classes.figure)} key='figure'>
 				{/*
 					Re-implement when react warning "unknown props"
 					https://fb.me/react-unknown-prop is resolved
@@ -401,6 +395,7 @@ class Lightbox extends Component {
 						cursor: onClickImage ? 'pointer' : 'auto',
 						maxHeight: `calc(100vh - ${heightOffset})`,
 					}}
+					key='image1'
 				/>
 			</figure>
 		);
@@ -551,8 +546,8 @@ Lightbox.childContextTypes = {
 
 const defaultStyles = {
 	content: {
-		position: 'relative',
 		margin: '0px',
+		display: 'block',
 	},
 	figure: {
 		margin: 0, // remove browser default
@@ -591,6 +586,7 @@ const defaultStyles = {
 		'width': 'auto',
 		maxWidth: '50%',
 		'background-color': 'white',
+		display: 'flex',
 	},
 	margin: {
 		display: 'inline-block',
@@ -600,6 +596,21 @@ const defaultStyles = {
 		display: 'flex',
 		justifyContent: 'space-between',
 		height: 40,
+	},
+	container2: {
+		alignItems: 'center',
+		boxSizing: 'border-box',
+		display: 'flex',
+		height: '100%',
+		justifyContent: 'center',
+		left: 0,
+		paddingBottom: defaultTheme.container.gutter.vertical,
+		paddingLeft: defaultTheme.container.gutter.horizontal,
+		paddingRight: defaultTheme.container.gutter.horizontal,
+		paddingTop: defaultTheme.container.gutter.vertical,
+		position: 'fixed',
+		top: 0,
+		width: '100%',
 	},
 };
 

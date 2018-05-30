@@ -108,7 +108,6 @@ const defaultStyles = {
   gapContainer: {
     'max-width': '25%',
     'background-color': 'transparent',
-    'float': 'right',
     marginLeft: '10%',
   },
   detailsContainerWithGap: {
