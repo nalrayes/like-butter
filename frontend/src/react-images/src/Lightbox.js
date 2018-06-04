@@ -332,7 +332,7 @@ class Lightbox extends Component {
 							</FlipMove>
 						</div>
 						{false && detailView && this.renderMargin()}
-						{detailView && this.renderExitDetailButton()}
+						{false && detailView && this.renderExitDetailButton()}
 						{detailView && this.renderImageDetails()}
 				{!detailView && imageLoaded && this.renderArrowPrev()}
 				{!detailView && imageLoaded && this.renderArrowNext()}
@@ -348,7 +348,7 @@ class Lightbox extends Component {
 			imageDetails
 		} = this.props;
 		return (
-			<ImageDetails key='currentImage' className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails}/>
+			<ImageDetails key='currentImage' className={css(this.classes.details)} currentImage={currentImage} imageDetails={imageDetails} triggerDetail={this.triggerDetail}/>
 		)
 	}
 

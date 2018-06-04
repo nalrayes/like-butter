@@ -2,6 +2,7 @@ import defaultTheme from './theme';
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite';
 import deepMerge from './utils/deepMerge';
+import ExitDetail from './components/ExitDetail';
 
 class ImageDetails extends Component {
   constructor(props) {
@@ -39,6 +40,10 @@ class ImageDetails extends Component {
     // )
     return(
       <div className={css(this.classes.gapContainer)}>
+        <ExitDetail
+        closeButtonTitle="exitDetails"
+        triggerDetail={this.props.triggerDetail}
+        />
         <div className={css(this.classes.detailsContainer)}>
           <div className={css(this.classes.details)}>
             <p className={css(this.classes.titleParagraph)}>
@@ -120,7 +125,7 @@ const defaultStyles = {
   centerMe: {
     'width': '100%',
     'max-width': '375px',
-  }
+  },
 };
 
 
