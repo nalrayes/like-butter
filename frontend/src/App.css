@@ -1,5 +1,6 @@
 
 .top-of-page {
+  width: 100%;
   border-bottom: solid black;
 }
 
@@ -42,6 +43,7 @@
 #root, .container-fluid, .car {
   height: 100%;
   background: #FFFAFA;
+  padding: 0;
   /*width: 100%;*/
 }
 .thing img {
@@ -141,6 +143,10 @@ html, body {
   margin: auto;
   width: 100%;
   height: auto;
+}
+
+.dropdown {
+  background-color: green;
 }
 
 /*.photoWrapper {

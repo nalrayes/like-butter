@@ -4,6 +4,8 @@ import Lightbox from '../../react-images/src/Lightbox.js';
 // import Lightbox from 'react-images';
 import Image from './Image.js';
 
+import FlipMove from 'react-flip-move';
+
 class Gallery extends Component {
     constructor (props) {
         super(props);
@@ -279,7 +281,8 @@ class Gallery extends Component {
             width: "100%"
         };
         return (
-                <div id={this.props.id} className="ReactGridGallery" ref={(c) => this._gallery = c}>
+                <div key= {"key_" + this.props.id} id={this.props.id} className="ReactGridGallery" ref={(c) => this._gallery = c}>
+                <FlipMove appearAnimation='fade' enterAnimation='fade' leaveAnimation='fade'>
                     <iframe style={resizeIframeStyles} ref={(c) => c && c.contentWindow.addEventListener('resize', this.onResize) } />
                 {images}
                 <Lightbox
@@ -302,6 +305,7 @@ class Gallery extends Component {
             onClickThumbnail={this.getOnClickLightboxThumbnailFn()}
             showThumbnails={this.props.showLightboxThumbnails}
                 />
+                </FlipMove>
                 </div>
         );
     }

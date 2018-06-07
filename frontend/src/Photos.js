@@ -3,7 +3,9 @@ import {Form, ButtonGroup, Label, Image, Button, FormGroup, FormControl, Control
 import Gallery from './react-grid-gallery/src/Gallery.js';
 // import Gallery from 'react-grid-gallery';
 import React from 'react';
+import FlipMove from 'react-flip-move';
 const config = require('./config.json');
+
 
 const imgW = 250;
 const imgH = 125;
@@ -15,6 +17,7 @@ class FilterForm extends React.Component {
 
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.dropdownLocations = this.dropdownLocations.bind(this);
   }
 
   handleLocationChange(event) {
@@ -27,24 +30,38 @@ class FilterForm extends React.Component {
     this.props.onImageFilter(this.state);
   }
 
+  dropdownLocations(event) {
+        console.log('YEEeeeT');
+    this.setState({'dropdown': 'locationDropdown'})
+    this.props.onDropdownChange(this.state);
+  }
+
   render() {
     return(
       <div>
-        <Label>Filter By </Label>
-        <Form inline>
-          <FormGroup>
-            <ControlLabel>Location</ControlLabel>
-            <FormControl componentClass="select" onChange={this.handleLocationChange}>
-              <option value="n/a"></option>
-              <option value="New York, NY">New York, NY</option>
-              <option value="San Fransisco, CA">San Fransisco, CA</option>
-            </FormControl>
-            <Button onClick={this.handleSubmit}>Submit</Button>
-          </FormGroup>
-        </Form>
+        <h3 onClick={this.dropdownLocations}>Location</h3>
       </div>
-    );
+    )
   }
+
+  // render() {
+  //   return(
+  //     <div>
+  //       <Label>Filter By </Label>
+  //       <Form inline>
+  //         <FormGroup>
+  //           <ControlLabel>Location</ControlLabel>
+  //           <FormControl componentClass="select" onChange={this.handleLocationChange}>
+  //             <option value="n/a"></option>
+  //             <option value="New York, NY">New York, NY</option>
+  //             <option value="San Fransisco, CA">San Fransisco, CA</option>
+  //           </FormControl>
+  //           <Button onClick={this.handleSubmit}>Submit</Button>
+  //         </FormGroup>
+  //       </Form>
+  //     </div>
+  //   );
+  // }
 }
 
 class SiteHeader extends React.Component {
@@ -56,7 +73,7 @@ class SiteHeader extends React.Component {
         </Col>
         <Col md={4}>
           <div className='filter-form'>
-          <FilterForm onImageFilter={this.props.onImageFilter}/>
+          <FilterForm onDropdownChange={this.props.onDropdownChange} onImageFilter={this.props.onImageFilter}/>
           </div>
         </Col>
         <Col md={5}>
@@ -131,6 +148,8 @@ class Photos extends React.Component {
     this.handleImageFilter = this.handleImageFilter.bind(this);
     this.goToPhoto = this.goToPhoto.bind(this);
     this.getPhotoDetails = this.getPhotoDetails.bind(this);
+    this.onDropdownChange = this.onDropdownChange.bind(this);
+    this.renderLocationDropdown = this.renderLocationDropdown.bind(this);
   }
 
   handleImageFilter(filterInfo) {
@@ -163,6 +182,35 @@ class Photos extends React.Component {
       .then(photo => {
         this.setState({'photoDetails': photo});
       });
+  }
+
+  onDropdownChange(selectedDropdown){
+    console.log('YEET');
+    console.log(selectedDropdown);
+    const dropdown = selectedDropdown['dropdown'];
+    if (dropdown === 'locationDropdown') {
+      if (this.state.showLocationDropdown) {
+        this.setState({showLocationDropdown: false});
+      } else {
+        this.setState({showLocationDropdown: true});
+      }
+    }
+  }
+
+  renderLocationDropdown() {
+    return(
+      <div className='dropdown'>
+        <span>
+          All
+        </span>
+        <span>
+           New York, NY
+        </span>
+        <span>
+          San Fransisco, CA
+        </span>
+      </div>
+    )
   }
 
   render() {
@@ -244,7 +292,7 @@ class Photos extends React.Component {
     //   listOfDivs.push(<div></div>)
     // }
     return(
-      <Grid fluid={true}>
+      <div>
         <div>
           <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet" />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
@@ -252,11 +300,14 @@ class Photos extends React.Component {
         </div>
         <div className='top-of-page'>
           <Row className='show-grid'>
-            <SiteHeader onImageFilter={this.handleImageFilter}/>
+            <SiteHeader onDropdownChange={this.onDropdownChange} onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <Gallery imageDetails={listOfImageDetails} images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
-      </Grid>
+        <FlipMove enterAnimation='fade' leaveAnimation='fade'>
+        {this.state.showLocationDropdown && this.renderLocationDropdown()}
+        <Gallery key='gallery' imageDetails={listOfImageDetails} images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
+        </FlipMove>
+      </div>
     );
   }
 }
