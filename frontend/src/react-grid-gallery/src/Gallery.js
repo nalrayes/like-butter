@@ -52,6 +52,7 @@ class Gallery extends Component {
     }
 
     onResize () {
+      console.log("RESIZE~");
         if (!this._gallery) return;
         this.setState({
             containerWidth: Math.floor(this._gallery.clientWidth),
@@ -186,8 +187,7 @@ class Gallery extends Component {
         if(delta > 0) {
             // added by me
             const newHeight = this.calculateNewHeight(len, containerWidth, imgMargin);
-            // done
-            // var cutoff = this.calculateCutOff(len, delta, row);
+            let newTotalWidth = 0;
             for(var i in row) {
                 // var pixelsToRemove = cutoff[i];
                 item = row[i];
@@ -198,6 +198,21 @@ class Gallery extends Component {
                 item.newHeight = newHeight;
                 item.scaletwidth = Math.floor((item.thumbnailWidth / item.thumbnailHeight) * newHeight);
                 item.vwidth = item.scaletwidth;
+                newTotalWidth += item.vwidth + imgMargin;
+            }
+            console.log("NEW WIDTH");
+            console.log(newTotalWidth);
+
+            // if there's still a delta, then crop
+            const newDelta = newTotalWidth - containerWidth;
+            if (newDelta > 0) {
+              var cutoff = this.calculateCutOff(newTotalWidth, newDelta, row);
+              for(var i in row) {
+                  var pixelsToRemove = cutoff[i];
+                  item = row[i];
+                  item.marginLeft = -Math.abs(Math.floor(pixelsToRemove / 2));
+                  item.vwidth = item.scaletwidth - pixelsToRemove;
+              }
             }
         }
         else {
@@ -213,8 +228,17 @@ class Gallery extends Component {
 
     // added by me
     calculateNewHeight(len, containerWidth, margin) {
-      const totalScaleWidth = len / (this.props.rowHeight - margin);
-      return Math.floor(containerWidth / totalScaleWidth);
+      const totalScaleWidth = len / (this.props.rowHeight);
+      let height = Math.floor(containerWidth / totalScaleWidth);
+      let newLen = Math.floor(height * totalScaleWidth);
+      while (newLen < containerWidth) {
+        console.log("HERE");
+        console.log(newLen);
+        console.log(containerWidth);
+        height += 1;
+        newLen = height * totalScaleWidth;
+      }
+      return height;
     }
 
     setThumbScale (item) {
@@ -282,8 +306,8 @@ class Gallery extends Component {
         };
         return (
                 <div key= {"key_" + this.props.id} id={this.props.id} className="ReactGridGallery" ref={(c) => this._gallery = c}>
+                <iframe style={resizeIframeStyles} ref={(c) => c && c.contentWindow.addEventListener('resize', this.onResize) } />
                 <FlipMove appearAnimation='fade' enterAnimation='fade' leaveAnimation='fade'>
-                    <iframe style={resizeIframeStyles} ref={(c) => c && c.contentWindow.addEventListener('resize', this.onResize) } />
                 {images}
                 <Lightbox
             images={this.props.images}

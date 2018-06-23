@@ -23,6 +23,7 @@
     "express-react-views": "^0.10.4",
     "jquery": "^3.2.1",
     "mongoose": "^4.12.6",
+    "nodemon": "^1.17.5",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
