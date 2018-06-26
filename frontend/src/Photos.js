@@ -136,7 +136,7 @@ class Photos extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {locationCSS: {All: 'active', NY: 'inactive', SF: 'inactive'}};
     fetch(config.host + '/photos/')
       .then(data => data.json())
       .then(photosFromDb => {
@@ -150,6 +150,9 @@ class Photos extends React.Component {
     this.getPhotoDetails = this.getPhotoDetails.bind(this);
     this.onDropdownChange = this.onDropdownChange.bind(this);
     this.renderLocationDropdown = this.renderLocationDropdown.bind(this);
+    this.allClicked = this.allClicked.bind(this);
+    this.NYClicked = this.NYClicked.bind(this);
+    this.SFClicked = this.SFClicked.bind(this);
   }
 
   handleImageFilter(filterInfo) {
@@ -197,16 +200,31 @@ class Photos extends React.Component {
     }
   }
 
+  allClicked() {
+    this.handleImageFilter({location: "n/a"});
+    this.setState({locationCSS: {All: 'active', NY: 'inactive', SF: 'inactive'}});
+  }
+
+  NYClicked() {
+    this.handleImageFilter({location: "New York, NY"});
+    this.setState({locationCSS: {All: 'inactive', NY: 'active', SF: 'inactive'}});
+  }
+
+  SFClicked() {
+    this.handleImageFilter({location: "San Fransisco, CA"});
+    this.setState({locationCSS: {All: 'inactive', NY: 'inactive', SF: 'active'}});
+  }
+
   renderLocationDropdown() {
     return(
       <div className='dropdown'>
-        <span>
+        <span onClick={this.allClicked} className={this.state.locationCSS.All}>
           All
         </span>
-        <span>
+        <span onClick={this.NYClicked} className={this.state.locationCSS.NY}>
            New York, NY
         </span>
-        <span>
+        <span onClick={this.SFClicked} className={this.state.locationCSS.SF}>
           San Fransisco, CA
         </span>
       </div>

@@ -322,7 +322,7 @@ class Lightbox extends Component {
 				onTouchEnd={backdropClosesModal && this.closeBackdrop}
 			>
 
-					<FlipMove id='this' className={css(this.classes.container2)} typeName='div' appearAnimation='fade' enterAnimation='fade' leaveAnimation='fade'>
+			<FlipMove id='this' className={css(this.classes.container2)} typeName='div' appearAnimation='fade' enterAnimation='fade' leaveAnimation='fade'>
 						<div key="a" className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
 							{imageLoaded && this.renderHeader()}
 							{this.renderImages()}

@@ -11,6 +11,10 @@ class ImageDetails extends Component {
     this.classes = StyleSheet.create(deepMerge(defaultStyles, this.theme));
   }
 
+  componentDidMount() {
+    console.log('mount');
+  }
+
   render() {
     const {
       imageDetails,
