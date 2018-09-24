@@ -76,18 +76,6 @@ class SiteHeader extends React.Component {
           <FilterForm onDropdownChange={this.props.onDropdownChange} onImageFilter={this.props.onImageFilter}/>
           </div>
         </Col>
-        <Col md={5}>
-          <div className='buttons'>
-            <ButtonGroup  justified>
-              <ButtonGroup>
-                <Button bsStyle='link' href='/'>Home</Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button bsStyle='link' href='/feedback'>Feedback</Button>
-              </ButtonGroup>
-            </ButtonGroup>
-          </div>
-        </Col>
       </div>
     );
   }
@@ -109,15 +97,6 @@ class Photo extends React.Component {
   }
 }
 
-class PhotoRow extends React.Component {
-  render() {
-    return(
-      <div className='photos-flex'>
-        {this.props.images}
-      </div>
-    )
-  }
-}
 
 function createRemianingPhotos(currentPhoto, remainingPhotos) {
   const l = [];
@@ -311,20 +290,17 @@ class Photos extends React.Component {
     // }
     return(
       <div>
-        <div>
-          <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet" />
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  />
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-        </div>
         <div className='top-of-page'>
-          <Row className='show-grid'>
+          <Row>
             <SiteHeader onDropdownChange={this.onDropdownChange} onImageFilter={this.handleImageFilter}/>
           </Row>
         </div>
-        <FlipMove enterAnimation='fade' leaveAnimation='fade'>
-        {this.state.showLocationDropdown && this.renderLocationDropdown()}
-        <Gallery key='gallery' imageDetails={listOfImageDetails} images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
-        </FlipMove>
+        <div style={{overflow: 'hidden'}}>
+          <FlipMove enterAnimation='fade' leaveAnimation='fade'>
+            {this.state.showLocationDropdown && this.renderLocationDropdown()}
+            <Gallery key='gallery' imageDetails={listOfImageDetails} images={listForGallery} rowHeight={350} margin={2} enableImageSelection={false} showImageCount={false}/>
+          </FlipMove>
+        </div>
       </div>
     );
   }

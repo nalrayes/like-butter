@@ -2,6 +2,7 @@
 .top-of-page {
   width: 100%;
   border-bottom: solid black;
+  overflow: hidden;
 }
 
 .absolute-bottom-align {
@@ -64,6 +65,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+
 }
 .carLeft {
   height: 100%;
@@ -89,12 +91,12 @@ html, body {
   border-right: 3px solid;
 }
 
-.details {
-  width: 20%;
+/* .details {
+  width: 20%; */
   /*border-left: 3px solid;*/
-  background-color: #594583;
+  /* background-color: #594583;
   text-align: left;
-}
+} */
 
 .in-details {
   padding: 3%;
@@ -132,12 +134,6 @@ html, body {
   margin-right: auto;
 }
 
-.photos-flex {
-  display: flex;
-  width: 100%;
-  /*max-height: 30em;*/
-  min-height: 25em;
-}
 
 .photo-div {
   margin: auto;
@@ -174,3 +170,54 @@ html, body {
   float: left;
   overflow: hidden;
 }*/
+
+.detailsContainer {
+  background-color: white;
+  width: 100%;
+}
+.details {
+  padding: 25px;
+  width: auto;
+  background-color: white;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 13px;
+}
+.title {
+  font-size: 2.3em;
+  font-weight: bold;
+}
+.date {
+  font-size: 1.5em;
+}
+.location {
+  font-size: 1.2em;
+  font-style: italic;
+}
+.titleParagraph {
+  line-height: 155%;
+}
+.descriptionParagraph {
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+.footerParagraph {
+  margin-bottom: -5px;
+  font-style: italic;
+  font-size: 1em;
+}
+.gapContainer {
+  max-width: 25%;
+  background-color: transparent;
+  margin-left: 10%;
+}
+.detailsContainerWithGap {
+  width: 100%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.centerMe {
+  width: 100%;
+  max-width: 375px;
+}
