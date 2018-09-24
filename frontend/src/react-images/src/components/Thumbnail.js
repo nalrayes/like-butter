@@ -1,26 +1,51 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 
-function Thumbnail ({ index, src, thumbnail, active, onClick }, { theme }) {
-	const url = thumbnail ? thumbnail : src;
-	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+class Thumbnail extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	return (
-		<div
-			className={css(classes.thumbnail, active && classes.thumbnail__active)}
-			onClick={(e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				onClick(index);
-			}}
-			style={{ backgroundImage: 'url("' + url + '")' }}
-		/>
-	);
+	render() {
+		const { index, src, thumbnail, active, onClick } = this.props;
+		const { theme } = this.context;
+
+		const url = thumbnail ? thumbnail : src;
+		const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+
+		return (
+			<div
+				className={css(classes.thumbnail, active && classes.thumbnail__active)}
+				onClick={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					onClick(index);
+				}}
+				style={{ backgroundImage: 'url("' + url + '")' }}
+			/>
+		);
+	}
 }
+// function Thumbnail ({ index, src, thumbnail, active, onClick }, { theme }) {
+// 	const url = thumbnail ? thumbnail : src;
+// 	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+//
+// 	return (
+// 		<div
+// 			className={css(classes.thumbnail, active && classes.thumbnail__active)}
+// 			onClick={(e) => {
+// 				e.preventDefault();
+// 				e.stopPropagation();
+// 				onClick(index);
+// 			}}
+// 			style={{ backgroundImage: 'url("' + url + '")' }}
+// 		/>
+// 	);
+// }
 
 Thumbnail.propTypes = {
 	active: PropTypes.bool,

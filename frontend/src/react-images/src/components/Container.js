@@ -1,20 +1,38 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 
-function Container ({ ...props }, { theme }) {
-	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+class Container extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-	return (
-		<div id="lightboxBackdrop"
-			className={css(classes.container)}
-			{...props}
-		/>
-	);
+	render() {
+		const { theme } = this.context;
+		const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+
+		return (
+			<div id="lightboxBackdrop"
+				className={css(classes.container)}
+				{...this.props}
+			/>
+		);
+	}
 }
+
+// function Container ({ ...props }, { theme }) {
+// 	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+//
+// 	return (
+// 		<div id="lightboxBackdrop"
+// 			className={css(classes.container)}
+// 			{...props}
+// 		/>
+// 	);
+// }
 
 Container.contextTypes = {
 	theme: PropTypes.object.isRequired,

@@ -25,21 +25,21 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/feedback', (req, res) => {
-  sgMail.setApiKey(config.sendGridKey);
-  new Feedback({
-    from: req.body.senderName,
-    text: req.body.emailBody
-  }).save();
-  const msg = {
-    to: 'thenalrayes@gmail.com',
-    from: 'thenalrayes@gmail.com',
-    subject: req.body.senderName,
-    text: req.body.emailBody,
-  };
-  sgMail.send(msg);
-  res.redirect('/feedback');
-});
+// app.post('/feedback', (req, res) => {
+//   sgMail.setApiKey(config.sendGridKey);
+//   new Feedback({
+//     from: req.body.senderName,
+//     text: req.body.emailBody
+//   }).save();
+//   const msg = {
+//     to: 'thenalrayes@gmail.com',
+//     from: 'thenalrayes@gmail.com',
+//     subject: req.body.senderName,
+//     text: req.body.emailBody,
+//   };
+//   sgMail.send(msg);
+//   res.redirect('/feedback');
+// });
 
 app.get('/photos', (req, res) => {
   if (req.query.location) {

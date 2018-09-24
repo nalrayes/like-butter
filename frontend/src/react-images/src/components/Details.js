@@ -1,35 +1,59 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
 
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 import Icon from './Icon';
 
-function Details ({
-	direction,
-	icon,
-	onClick,
-	size,
-	...props,
-},
-{
-	theme,
-}) {
-	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+class Details extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-	return (
-		<button
-			type="button"
-			className={css(classes.arrow, size && classes['arrow__size__' + size], classes.footer)}
-			onClick={onClick}
-			onTouchEnd={onClick}
-			{...props}
-		>
-			<Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />
-		</button>
-	);
+  render() {
+    const { theme } = this.context
+    const { direction, icon, onClick, size } = this.props;
+    const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+
+    return (
+      <button
+        type="button"
+        className={css(classes.arrow, size && classes['arrow__size__' + size], classes.footer)}
+        onClick={onClick}
+        onTouchEnd={onClick}
+        {...this.props}
+      >
+        <Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />
+      </button>
+    );
+  }
 }
+
+// function Details ({
+// 	direction,
+// 	icon,
+// 	onClick,
+// 	size,
+// 	...props,
+// },
+// {
+// 	theme,
+// }) {
+// 	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
+//
+// 	return (
+// 		<button
+// 			type="button"
+// 			className={css(classes.arrow, size && classes['arrow__size__' + size], classes.footer)}
+// 			onClick={onClick}
+// 			onTouchEnd={onClick}
+// 			{...props}
+// 		>
+// 			<Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />
+// 		</button>
+// 	);
+// }
 
 Details.propTypes = {
 	direction: PropTypes.oneOf(['left', 'right']),

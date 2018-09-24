@@ -2,17 +2,12 @@ import defaultTheme from './theme';
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite';
 import deepMerge from './utils/deepMerge';
-import ExitDetail from './components/ExitDetail';
 
 class ImageDetails extends Component {
   constructor(props) {
     super(props);
     this.theme = deepMerge(defaultTheme, props.theme);
     this.classes = StyleSheet.create(deepMerge(defaultStyles, this.theme));
-  }
-
-  componentDidMount() {
-    console.log('mount');
   }
 
   render() {
@@ -42,72 +37,32 @@ class ImageDetails extends Component {
     //   </div>
     //   </div>
     // )
-
-    // return(
-    //   <div className={css(this.classes.gapContainer)}>
-    //     <ExitDetail
-    //     closeButtonTitle="exitDetails"
-    //     triggerDetail={this.props.triggerDetail}
-    //     />
-    //     <div className={css(this.classes.detailsContainer)}>
-    //       <div className={css(this.classes.details)}>
-    //         <p className={css(this.classes.titleParagraph)}>
-    //           <span className={css(this.classes.title)}>
-    //             {imageDetails[currentImage].title}
-    //           </span>
-    //           <span className={css(this.classes.date)}>, June 2017</span>
-    //           <br />
-    //           <span className={css(this.classes.location)}> {imageDetails[currentImage].location} </span>
-    //         </p>
-    //         <p className={css(this.classes.descriptionParagraph)}>
-    //           I randomly took this picture while in the car with my pal Moni while she was showing me around San Fransisco. This kind of happened by accident but turned out great, I love the way the light sort of fades out the powerlines and creates a cool shadow over the church. I was listening Madvilliany for the millionth time here, and Rainbows is a strange singy interlude that takes you into my favorite track in the album. <br />
-    //         </p>
-    //         <br />
-    //         <p className={css(this.classes.footerParagraph)}>
-    //           Taken at 1.0f, 1/60s, 350 ISO.
-    //         <br />
-    //         {takenOn}
-    //         </p>
-    //       </div>
-    //     </div>
-    //     <div className={css(this.classes.detailsContainerWithGap)}>
-    //       <div className={css(this.classes.centerMe)}>
-    //         <iframe title='Song' src={imageDetails[currentImage].spotifyURL} width="100%" height="80" allowtransparency="true"></iframe>
-    //       </div>
-    //     </div>
-    //   </div>
-    // )
-
     return(
-      <div className="gapContainer">
-        <ExitDetail
-        closeButtonTitle="exitDetails"
-        triggerDetail={this.props.triggerDetail}
-        />
-        <div className="detailsContainer">
-          <div className="details">
-            <p className="titleParagraph">
-              <span className="title">
+      <div className={css(this.classes.gapContainer)}>
+        <div className={css(this.classes.detailsContainer)}>
+          <div className={css(this.classes.details)}>
+            <p className={css(this.classes.titleParagraph)}>
+              <span className={css(this.classes.title)}>
                 {imageDetails[currentImage].title}
               </span>
-              <span className="date">, June 2017</span>
+              <span className={css(this.classes.date)}>, June 2017</span>
               <br />
-              <span className="location"> {imageDetails[currentImage].location} </span>
+              <span className={css(this.classes.location)}> {imageDetails[currentImage].location} </span>
             </p>
-            <p className="descriptionParagraph">
+            <p className={css(this.classes.descriptionParagraph)}>
               I randomly took this picture while in the car with my pal Moni while she was showing me around San Fransisco. This kind of happened by accident but turned out great, I love the way the light sort of fades out the powerlines and creates a cool shadow over the church. I was listening Madvilliany for the millionth time here, and Rainbows is a strange singy interlude that takes you into my favorite track in the album. <br />
             </p>
             <br />
-            <p className="footerParagraph">
+            <p className={css(this.classes.footerParagraph)}>
               Taken at 1.0f, 1/60s, 350 ISO.
             <br />
             {takenOn}
             </p>
           </div>
         </div>
-        <div className="detailsContainerWithGap">
-          <div className="centerMe">
-            <iframe title='Song' src={imageDetails[currentImage].spotifyURL} width="100%" height="80" allowtransparency="true"></iframe>
+        <div className={css(this.classes.detailsContainerWithGap)}>
+          <div className={css(this.classes.centerMe)}>
+            <iframe title='Song' src={imageDetails[currentImage].spotifyURL} width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
           </div>
         </div>
       </div>
@@ -153,7 +108,7 @@ const defaultStyles = {
   gapContainer: {
     'max-width': '25%',
     'background-color': 'transparent',
-    marginLeft: '10%',
+    'float': 'right',
   },
   detailsContainerWithGap: {
     'width': '100%',
@@ -165,7 +120,7 @@ const defaultStyles = {
   centerMe: {
     'width': '100%',
     'max-width': '375px',
-  },
+  }
 };
 
 
